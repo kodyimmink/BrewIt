@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import SwipeableTemporaryDrawer from './components/SwipeableTemporaryDrawer';
+
+import L from 'leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+
 import './App.css';
+import './'
+
+const openMapTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
 
 class App extends Component {
+  state = {
+    location: {
+      lat: 51.505,
+      lng: -0.09,
+    },
+    zoom: 2
+  }
+
+  /*componentDidMount() {
+    //TO-DO: navigator.geolocation.getCurrentPosition(pos=> position);
+  }*/
+
   render() {
+    const position = [this.state.location.lat, this.state.location.lng];
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Map
+          zoomControl={false}
+          className="map"
+          worldCopyJump={true}
+          center={position}
+          zoom={this.state.zoom}
           >
-            Learn React
-          </a>
-        </header>
+          <TileLayer
+            url={openMapTiles}
+          />
+          <SwipeableTemporaryDrawer></SwipeableTemporaryDrawer>
+        </Map>     
       </div>
     );
   }
 }
-
 export default App;
