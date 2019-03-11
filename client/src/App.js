@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import SwipeableTemporaryDrawer from './components/SwipeableTemporaryDrawer';
-
+import SearchBox from './components/SearchBox';
+import LoginButton from './components/LoginButton';
 
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import {getLocation} from './components/getLocation';
+
 
 import breweryIconSvg from './icons/beer.svg';
 import userLocationSvg from './icons/userLocation.svg';
@@ -49,7 +51,7 @@ class App extends Component {
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
     return (
-      <div className="App">
+      <div className="App"> 
           <Map
           zoomControl={false}
           className="map"
@@ -60,7 +62,6 @@ class App extends Component {
           <TileLayer
             url={openMapTiles}
           />
-          <SwipeableTemporaryDrawer></SwipeableTemporaryDrawer>
           {
             this.state.haveUsersLocation ? 
             <Marker
@@ -68,7 +69,20 @@ class App extends Component {
               icon={userLocation}>
             </Marker> : ''
           }
-        </Map>     
+
+        <div className='row'>
+          <div>
+            <SwipeableTemporaryDrawer />
+          </div>
+          <div>
+            <SearchBox />
+          </div>
+          <div>
+            <LoginButton />
+          </div>
+        </div>
+        
+        </Map>
       </div>
     );
   }
