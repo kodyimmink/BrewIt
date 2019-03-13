@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import fire from './fire';
+
 import SwipeableTemporaryDrawer from './components/SwipeableTemporaryDrawer';
 import SearchBox from './components/SearchBox';
 import LoginButton from './components/LoginButton';

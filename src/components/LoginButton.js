@@ -4,6 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 
 const styles = theme => ({
+  rootDiv: {
+      position: 'absolute',
+      margin: 'auto',
+      padding: '10px',
+  },
   fab: {
     margin: theme.spacing.unit,
     position: 'absolute',
@@ -14,8 +19,8 @@ const styles = theme => ({
 function FloatingActionButtons(props) {
   const { classes } = props;
   return (
-    <div>
-      <Fab variant="extended" className={classes.fab}>
+    <div className='rootDiv'>
+      <Fab variant="extended" size="medium" color="primary" className={classes.fab}>
         Login
       </Fab>
     </div>
