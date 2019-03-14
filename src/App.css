@@ -6,25 +6,68 @@ body {
 
 #root {
   height: 100%;
+  width: 100%;
 }
 
 .App {
   height: 100%;
+  width: 100%;
 }
 
 .map {
   height: 100%;
-}
-.row{
-  display:flex;
+  padding: 5px;
 }
 
 .loginButton{
-  position: absolute;
-  z-index: 999;
-  margin: auto;
-  right: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
 }
+
+.logoutButton{
+  background-color: #bf2020;
+  border: none;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.logoImgTitle{
+  margin: auto;
+  text-align: center;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  display: inline-block;
+  height: auto;
+  width: auto;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  
+}
+
+.divPadding{
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 
 /* added these from tutorial */
 body {
@@ -35,27 +78,19 @@ body {
 header {
   color: #fff;
   background-color: #103D5D;
-  padding: 33px 0 25px 15px;
+  padding: 10px 0 10px 10px;
 }
 
 header p {
   width: 400px;
   margin: 0 auto;
 }
+
 header .wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-header h1 {
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  display: inline-block;
-  margin: 0;
-  vertical-align: middle;
-  
-}
 
 .fa {
   font-size: 22px;
@@ -75,7 +110,6 @@ header i {
 }
 
 .wrapper {
-  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -157,19 +191,6 @@ form button {
   width: 100%;
   margin-top: 10px;
 }
-
-/* button {
-  border-radius: 2px;
-  min-width: 88px;
-  background-color: #FA6900;
-  cursor: pointer;
-  border: 0;
-  min-width: 120px;
-  color: #fff;
-  font-size: 14px;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-  padding: 10px 6px;
-} */
 
 .user-profile {
   position: fixed;

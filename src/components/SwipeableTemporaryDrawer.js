@@ -8,8 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -17,11 +15,21 @@ import AccountCirle from '@material-ui/icons/AccountCircle';
 
 
 const styles = {
-  list: {
-    width: 250,
-  },
+  
   fullList: {
     width: 'auto',
+    minWidth: 250,
+  },
+  menuButton: {
+    '&:hover': {
+      backgroundColor: '#1d5a91',
+    },
+    float: 'left',
+    paddingRight: '5px',
+    paddingLeft: '5px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    color: '#ffffff',
   },
 };
 
@@ -40,7 +48,7 @@ class SwipeableTemporaryDrawer extends React.Component {
     const { classes } = this.props;
 
     const sideList = (
-      <div className={classes.list}>
+      <div className={classes.fullList}>
         <List>
         <ListItem button>
               <ListItemIcon>
@@ -64,7 +72,7 @@ class SwipeableTemporaryDrawer extends React.Component {
     return (
       <div>
         <IconButton>
-          <MenuIcon onClick={this.toggleDrawer('left', true)}/>
+          <MenuIcon className={classes.menuButton} onClick={this.toggleDrawer('left', true)}/>
         </IconButton>
         <SwipeableDrawer
           open={this.state.left}

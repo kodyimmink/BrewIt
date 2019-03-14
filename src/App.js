@@ -4,7 +4,8 @@ import fire, { auth, provider } from './fire';
 
 import SwipeableTemporaryDrawer from './components/SwipeableTemporaryDrawer';
 import SearchBox from './components/SearchBox';
-import LoginButton from './components/LoginButton';
+
+import Logo from './components/Logo';
 
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -12,6 +13,8 @@ import {getLocation} from './components/getLocation';
 
 
 import breweryIconSvg from './icons/beer.svg';
+
+
 import userLocationSvg from './icons/userLocation.svg';
 
 import './App.css';
@@ -102,15 +105,19 @@ class App extends Component {
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
     return (
-      <div className="App"> 
+      <div className="App">
           <header>
             <div className="wrapper">
-              <h1>BrewIt Title and Logo</h1>
+              <SwipeableTemporaryDrawer />
+              <Logo />
+              
+              <div className='divPadding'>
                 {this.state.user ?
-              <button onClick={this.logout}>Logout</button>                
-              :
-              <button onClick={this.login}>Log In</button>              
-              }
+                <button className='logoutButton' onClick={this.logout}>Logout</button>                
+                :
+                <button className='loginButton' onClick={this.login}>Log In</button>              
+                }
+              </div>
             </div>
           </header>
           
@@ -122,10 +129,10 @@ class App extends Component {
             </div>
             :
             <div className='wrapper'>
-              <p>You must be logged in favorite, rate and review breweries.</p>
+              <p>You must be logged in to favorite, rate and review breweries.</p>
             </div>
           }
-
+          <div className='map'>
           <Map
           zoomControl={false}
           className="map"
@@ -144,17 +151,10 @@ class App extends Component {
             </Marker> : ''
           }
 
-        <div className='row'>
-          <div>
-            <SwipeableTemporaryDrawer />
-          </div>
-          <div>
-            <SearchBox />
-          </div>
-        
-        </div>
-        
+          <SearchBox />
         </Map>
+          </div>
+          
       </div>
     );
   }
