@@ -106,6 +106,7 @@ class App extends Component {
     const position = [this.state.location.lat, this.state.location.lng];
     return (
       <div className="App">
+        <SearchBox />
           <header>
             <div className="wrapper">
               <SwipeableTemporaryDrawer />
@@ -132,27 +133,26 @@ class App extends Component {
               <p>You must be logged in to favorite, rate and review breweries.</p>
             </div>
           }
-          <div className='map'>
-          <Map
-          zoomControl={false}
-          className="map"
-          worldCopyJump={true}
-          center={position}
-          zoom={this.state.zoom}
-          >
-          <TileLayer
-            url={openMapTiles}
-          />
-          {
-            this.state.haveUsersLocation ? 
-            <Marker
-              position={position}
-              icon={userLocation}>
-            </Marker> : ''
-          }
 
-          <SearchBox />
-        </Map>
+          <div className='mapContainer'>
+            <Map
+            zoomControl={false}
+            className="map"
+            worldCopyJump={true}
+            center={position}
+            zoom={this.state.zoom}
+            >
+            <TileLayer
+              url={openMapTiles}
+            />
+            {
+              this.state.haveUsersLocation ? 
+              <Marker
+                position={position}
+                icon={userLocation}>
+              </Marker> : ''
+            }
+          </Map>
           </div>
           
       </div>

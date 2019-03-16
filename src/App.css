@@ -68,6 +68,11 @@ body {
   padding-bottom: 5px;
 }
 
+.mapContainer{
+  height: 90%;
+  width: 100%;
+}
+
 
 /* added these from tutorial */
 body {
@@ -82,7 +87,7 @@ header {
 }
 
 header p {
-  width: 400px;
+  width: 100px;
   margin: 0 auto;
 }
 

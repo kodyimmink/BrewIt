@@ -11,9 +11,9 @@ const styles = {
     position: 'absolute',
     width: '30%',
     minWidth: '300px',
-    marginLeft: '10%',
+    marginLeft: '60%',
     marginRight: '',
-    padding: '10px',
+    padding: '15px',
   },
   root: {
     padding: '2px 4px',
