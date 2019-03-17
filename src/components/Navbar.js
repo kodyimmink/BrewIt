@@ -1,7 +1,6 @@
 import React from 'react';
-
 import Logo from './Logo';
-import fire, { auth, provider } from '../fire';
+import { auth, provider } from '../fire';
 
 import {
   Collapse,
@@ -79,16 +78,6 @@ export default class brewitNavbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-            <Form>
-                <FormGroup>
-                    <Input
-                        type="search"
-                        name="search"
-                        id="exampleSearch"
-                        placeholder="Search"
-                    />
-                </FormGroup>
-            </Form>
               <NavItem>
                 <NavLink href="/">Link</NavLink>
               </NavItem>

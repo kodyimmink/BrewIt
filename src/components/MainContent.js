@@ -1,5 +1,6 @@
 import React from 'react';
 import BrewItInfo from './BrewItInfo';
+import BrewerySearch from './BrewerySearch';
 import BreweryMap from './BreweryMap';
 
 function MainContent(){
@@ -7,6 +8,9 @@ function MainContent(){
       <div className='mainContent'>
         <main>
           <BrewItInfo />
+          <div className='searchBox'>
+            <BrewerySearch />
+          </div>
           <BreweryMap />
         </main>
       </div> 

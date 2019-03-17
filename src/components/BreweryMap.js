@@ -44,7 +44,7 @@ class BreweryMap extends Component{
       this.setState({
         location,
         haveUsersLocation: true,
-        zoom: 13
+        zoom: 8
       }, () => { //callback function called here
         getReverseLocation(this.state.location.lat, this.state.location.lng)
         .then(zipCode => searchBreweries(zipCode)
@@ -76,7 +76,8 @@ class BreweryMap extends Component{
             position={position}
             icon={userLocation}
             >
-            <Popup>
+            <Popup
+              className='custom-popup leaflet-popup-content-wrapper'>
               Latitude: {position[0]} 
               <br />
               Longitude: {position[1]}
@@ -90,11 +91,13 @@ class BreweryMap extends Component{
               position={[brewery.latitude, brewery.longitude]}
               icon={breweryIcon}
               >
-              <Popup>
+              <Popup 
+                className='custom-popup leaflet-popup-content-wrapper'
+                >
                 <b>{brewery.name}</b><br />
                 {brewery.street}<br />
                 {brewery.city}, {brewery.state} {brewery.postal_code}<br />
-                {brewery.website_url}
+                <a href={brewery.website_url}>{brewery.website_url}</a>
               </Popup>
             </Marker>
           ))
