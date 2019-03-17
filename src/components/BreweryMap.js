@@ -14,7 +14,7 @@ const openMapTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 const breweryIcon = L.icon({
   iconUrl: brewitLogo,
-  iconSize: [50, 82]
+  iconSize: [25, 41]
 });
 
 const userLocation = L.icon({

@@ -69,10 +69,10 @@ class BrewerySearch extends Component {
     const { brewery, suggestions, value } = this.state
 
     const inputProps = {
-      placeholder: 'Type a brewery name',
+      placeholder: 'Type a brewery name or state',
       value,
       onChange: this.onChange,
-      className: 'shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-4'
+      className: 'appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-4'
     };
 
     return (

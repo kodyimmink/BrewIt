@@ -8,7 +8,7 @@ export function getReverseLocation(lat, long){
         resolve(fetch("https://nominatim.openstreetmap.org/reverse.php?lat="+lat+"&lon="+long+"&format=json")
           .then(res => res.json())
           .then(location => {
-            return location.address.postcode;
+            return location.address.state;
           }).catch(error => console.error(error))
           )
     });
