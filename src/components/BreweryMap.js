@@ -2,19 +2,27 @@ import React, { Component } from 'react';
 
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
+
 import {getLocation} from '../methods/getLocation';
+import {searchBreweries} from '../methods/searchBreweries';
+import {getReverseLocation} from '../methods/getReverselocation';
 
 import userLocationSvg from '../icons/userLocation.svg';
+import brewitLogo from '../icons/brewitLogo.svg'
 
 const openMapTiles = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+const breweryIcon = L.icon({
+  iconUrl: brewitLogo,
+  iconSize: [50, 82]
+});
 
 const userLocation = L.icon({
   iconUrl: userLocationSvg,
   iconSize: [50, 82]
 });
 
-
-class BreweryMap extends Component {
+class BreweryMap extends Component{
   constructor(){
     super();
 
@@ -24,9 +32,9 @@ class BreweryMap extends Component {
         lng: -0.09,
       },
       haveUsersLocation: false,
-      zoom: 2
+      zoom: 2,
+      localBreweriesList: [],
     }
-    
   }
 
   componentDidMount() {
@@ -37,14 +45,23 @@ class BreweryMap extends Component {
         location,
         haveUsersLocation: true,
         zoom: 13
-      });
-    });
+      }, () => { //callback function called here
+        getReverseLocation(this.state.location.lat, this.state.location.lng)
+        .then(zipCode => searchBreweries(zipCode)
+        .then(results => {
+          this.setState({
+            localBreweriesList: results,
+          })
+        }))
+        });
+    })
   }
 
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
     return (
       <Map
+        animate={true}
         zoomControl={false}
         worldCopyJump={true}
         center={position}
@@ -65,6 +82,22 @@ class BreweryMap extends Component {
               Longitude: {position[1]}
             </Popup>
           </Marker> : ''
+        }
+        {
+          this.state.localBreweriesList.map(brewery => (
+            <Marker
+              key={brewery.id}
+              position={[brewery.latitude, brewery.longitude]}
+              icon={breweryIcon}
+              >
+              <Popup>
+                <b>{brewery.name}</b><br />
+                {brewery.street}<br />
+                {brewery.city}, {brewery.state} {brewery.postal_code}<br />
+                {brewery.website_url}
+              </Popup>
+            </Marker>
+          ))
         }
       </Map>
     );
