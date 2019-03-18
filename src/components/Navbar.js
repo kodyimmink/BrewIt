@@ -8,15 +8,10 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Form,
-  FormGroup,
-  Input,
   Button } from 'reactstrap';
 
 export default class brewitNavbar extends React.Component {
@@ -78,12 +73,6 @@ export default class brewitNavbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/">Link</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/">Another Link</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Settings

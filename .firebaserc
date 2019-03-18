@@ -1,5 +1,6 @@
 {
   "projects": {
-    "brewit": "brewit-1bc4c"
+    "brewit": "brewit-1bc4c",
+    "default": "brewit-1bc4c"
   }
 }

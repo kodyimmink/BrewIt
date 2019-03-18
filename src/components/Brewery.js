@@ -2,6 +2,10 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 class Brewery extends PureComponent {
+  centerMap(){
+    console.log("The function has been called")
+  }
+
   render() {
     const { brewery } = this.props
     const {
@@ -42,7 +46,7 @@ class Brewery extends PureComponent {
     }
 
     return (
-      <div className={`p-4 mb-2 rounded ${bgColor}`}>
+      <div className={`p-4 mb-2 rounded ${bgColor}`} onClick={this.centerMap}>
         { (Object.keys(brewery).length !== 0) ?
           <div>
             <address className="roman">

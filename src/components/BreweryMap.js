@@ -7,6 +7,8 @@ import {getLocation} from '../methods/getLocation';
 import {searchBreweries} from '../methods/searchBreweries';
 import {getReverseLocation} from '../methods/getReverselocation';
 
+import {firestoreTesting} from '../methods/firestoreTesting';
+
 import userLocationSvg from '../icons/userLocation.svg';
 import brewitLogo from '../icons/brewitLogo.svg'
 
@@ -19,7 +21,7 @@ const breweryIcon = L.icon({
 
 const userLocation = L.icon({
   iconUrl: userLocationSvg,
-  iconSize: [50, 82]
+  iconSize: [25, 41]
 });
 
 class BreweryMap extends Component{
@@ -55,6 +57,7 @@ class BreweryMap extends Component{
         }))
         });
     })
+    firestoreTesting();
   }
 
   render() {
