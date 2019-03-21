@@ -7,8 +7,6 @@ import {getLocation} from '../methods/getLocation';
 import {searchBreweries} from '../methods/searchBreweries';
 import {getReverseLocation} from '../methods/getReverselocation';
 
-import {firestoreTesting} from '../methods/firestoreTesting';
-
 import userLocationSvg from '../icons/userLocation.svg';
 import brewitLogo from '../icons/brewitLogo.svg'
 
@@ -57,7 +55,6 @@ class BreweryMap extends Component{
         }))
         });
     })
-    firestoreTesting();
   }
 
   render() {
