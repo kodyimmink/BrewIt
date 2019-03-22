@@ -5,11 +5,12 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 const firestoreRef = admin.firestore();
-const usersDocRef = firestoreRef.collection('users').doc();
+const usersColRef = firestoreRef.collection('users');
+
 
 //create new user document in firestore
 function writeUserData(userId, name, email) {
-  usersDocRef.create({
+  usersColRef.doc().create({
     uid: userId,
     username: name,
     email: email,
