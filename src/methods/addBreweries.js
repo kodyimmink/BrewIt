@@ -12,51 +12,47 @@ export function addBreweriesToDb(){
         let breweriesUrl = "https://api.openbrewerydb.org/breweries?page="+i+"&per_page=50";
         promiseArray.push(fetch(breweriesUrl)
         .then(response => response.json())
-        .catch(error => console.log(error)));
-      }
-      
-      console.log(promiseArray);
+        .catch(error => console.log(error)));      
+        }
       return await Promise.all(promiseArray);
     }
-  
+
     async function writeBreweryData(breweries) {
-        //console.log(breweries);
         let promiseArray = [];
-        for (let i = 0; i <= breweries.length; i++){
-            promiseArray.push(
-                breweriesColRef.add({
-                    id: breweries[i].id,
-                    name: breweries[i].name,
-                    brewery_type: breweries[i].brewery_type,
-                    street: breweries[i].street,
-                    city: breweries[i].city,
-                    state: breweries[i].state,
-                    postal_code: breweries[i].postal_code,
-                    country: breweries[i].country,
-                    longitude: breweries[i].longitude,
-                    latitude: breweries[i].latitude,
-                    phone: breweries[i].phone,
-                    website_url: breweries[i].website_url,
-                    api_updated_at: breweries[i].updated_at,
-                    tag_list: breweries[i].tag_list
-          })
-          .then((res) => {
-            console.log(`Document created at ${res.updateTime}`);
-          })
-          .catch((err) => {
-            console.log(`Failed to create document: ${err}`);
-          })
-        )
+        for (let i = 0; i < breweries.length; i++){
+            for (let j = 0; j < breweries[i].length; j++){
+                promiseArray.push(
+                    breweriesColRef.add({
+                        id: breweries[i][j].id,
+                        name: breweries[i][j].name,
+                        brewery_type: breweries[i][j].brewery_type,
+                        street: breweries[i][j].street,
+                        city: breweries[i][j].city,
+                        state: breweries[i][j].state,
+                        postal_code: breweries[i][j].postal_code,
+                        country: breweries[i][j].country,
+                        longitude: breweries[i][j].longitude,
+                        latitude: breweries[i][j].latitude,
+                        phone: breweries[i][j].phone,
+                        website_url: breweries[i][j].website_url,
+                        api_updated_at: breweries[i][j].updated_at,
+                        tag_list: breweries[i][j].tag_list
+              })
+              .then((res) => {
+                console.log(`Document created at ${res.updateTime}`);
+              })
+              .catch((err) => {
+                console.log(`Failed to create document: ${err}`);
+              })
+            )}
         }
     return await Promise.all(promiseArray);  
     }
-    
-     getAllBreweries(161)
-      .then(data => {
-         writeBreweryData(data)
-      })
-      .then(console.log("breweries written to firestore"))
-      .catch(error => console.log(error));
-  
-    }
+
+getAllBreweries(161)
+.then(array => writeBreweryData(array))
+.then(console.log("breweries written to firestore"))
+.catch(error => console.log(error));
+
+}
   
