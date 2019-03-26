@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import {Button} from 'reactstrap';
 
 class Brewery extends PureComponent {
-  centerMap(){
-    console.log("The function has been called")
-  }
 
   render() {
     const { brewery } = this.props
@@ -15,8 +13,6 @@ class Brewery extends PureComponent {
       state,
       postal_code,
       country,
-      longitude,
-      latitude,
       brewery_type
     } = brewery
     let bgColor
@@ -45,8 +41,9 @@ class Brewery extends PureComponent {
         bgColor = 'bg-grey-light text-grey'
     }
 
+
     return (
-      <div className={`p-4 mb-2 rounded ${bgColor}`} onClick={this.centerMap}>
+      <div className={`p-4 mb-2 rounded ${bgColor}`}>
         { (Object.keys(brewery).length !== 0) ?
           <div>
             <address className="roman">
@@ -61,20 +58,12 @@ class Brewery extends PureComponent {
                 { postal_code !== '' ? <span>{postal_code}, </span> : '' }
                 { country !== '' ? <span>{country} </span> : '' }
               </div>
-              <div>
-                Geo Coordinates: {latitude}/{longitude}
-              </div>
+              <br>
+              </br>
             </address>
-            { address ?
+            { name ?
               <div>
-                <a
-                  className="text-white"
-                  href={`https://www.google.com/maps/search/?api=1&query=${address}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Google Map
-                </a>
+                <Button color="info">Favorite</Button>
               </div>
               : ''
             }
@@ -91,4 +80,4 @@ Brewery.propTypes = {
   brewery: PropTypes.object.isRequired
 }
 
-export default Brewery
+export default Brewery;

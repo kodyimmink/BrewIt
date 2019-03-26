@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
 
-import {getLocation} from '../methods/getLocation';
-import {searchBreweries} from '../methods/searchBreweries';
-import {getReverseLocation} from '../methods/getReverselocation';
+import { connect } from 'react-redux';
+import { actions } from '../store';
 
 import userLocationSvg from '../icons/userLocation.svg';
 import brewitLogo from '../icons/brewitLogo.svg'
@@ -22,56 +21,31 @@ const userLocation = L.icon({
   iconSize: [25, 41]
 });
 
+
 class BreweryMap extends Component{
-  constructor(){
-    super();
-
-    this.state = {
-      location: {
-        lat: 51.505,
-        lng: -0.09,
-      },
-      haveUsersLocation: false,
-      zoom: 2,
-      localBreweriesList: [],
-    }
-  }
-
-  componentDidMount() {
-    //get users geolocation
-    getLocation()
-    .then(location => {
-      this.setState({
-        location,
-        haveUsersLocation: true,
-        zoom: 8
-      }, () => { //callback function called here
-        getReverseLocation(this.state.location.lat, this.state.location.lng)
-        .then(zipCode => searchBreweries(zipCode)
-        .then(results => {
-          this.setState({
-            localBreweriesList: results,
-          })
-        }))
-        });
-    })
-  }
+  
+   componentDidMount() {
+     this.props.onSetInitialPosition();
+     //this is not async, does not wait for location to be determined.
+     //TO-DO: need to make this wait for location before running.
+     this.props.onSetBreweriesList(this.props.location);
+   }
 
   render() {
-    const position = [this.state.location.lat, this.state.location.lng];
+    const position = [this.props.location.lat, this.props.location.lng];
     return (
       <Map
         animate={true}
         zoomControl={false}
         worldCopyJump={true}
         center={position}
-        zoom={this.state.zoom}
+        zoom={this.props.zoom}
         >
         <TileLayer
           url={openMapTiles}
         />
         {
-        this.state.haveUsersLocation ? 
+        this.props.haveUsersLocation ? 
           <Marker
             position={position}
             icon={userLocation}
@@ -85,7 +59,7 @@ class BreweryMap extends Component{
           </Marker> : ''
         }
         {
-          this.state.localBreweriesList.map(brewery => (
+          this.props.localBreweriesList.map(brewery => (
             <Marker
               key={brewery.id}
               position={[brewery.latitude, brewery.longitude]}
@@ -106,4 +80,25 @@ class BreweryMap extends Component{
     );
   }
 }
-export default BreweryMap;
+
+function mapStateToProps(state){
+  return {
+      location: state.location,
+      haveUsersLocation: state.haveUsersLocation,
+      zoom: state.zoom,
+      localBreweriesList: state.localBreweriesList
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    onSetInitialPosition(){
+      dispatch(actions.setInitialPosition());
+    },
+    onSetBreweriesList(position){
+      dispatch(actions.setBreweriesList(position));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BreweryMap);

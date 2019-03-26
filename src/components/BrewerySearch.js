@@ -3,6 +3,8 @@ import axios from 'axios'
 import { debounce } from 'throttle-debounce'
 import Autosuggest from 'react-autosuggest'
 import Brewery from '../components/Brewery';
+import { connect } from 'react-redux';
+import { actions } from '../store';
 
 const API_SERVER_HOST = process.env.REACT_APP_API_SERVER_HOST || "https://api.openbrewerydb.org"
 
@@ -30,7 +32,7 @@ class BrewerySearch extends Component {
   getSuggestions = value => {
     const params = { query: value }
 
-    axios.get(`${API_SERVER_HOST}/breweries/search`, { params: params })
+    axios.get(`${API_SERVER_HOST}/breweries/autocomplete`, { params: params })
       .then(res => {
         this.setState({ suggestions: res.data })
       })
@@ -60,7 +62,10 @@ class BrewerySearch extends Component {
 
     axios.get(`${API_SERVER_HOST}/breweries/${brewery.id}`)
       .then(res => {
-        this.setState({ brewery: res.data })
+        this.setState({ brewery: res.data }, 
+            () => {
+                this.props.onSetFocusedBrewery(res.data);
+            })
       })
       .catch(error => {})
   }
@@ -69,7 +74,7 @@ class BrewerySearch extends Component {
     const { brewery, suggestions, value } = this.state
 
     const inputProps = {
-      placeholder: 'Type a brewery name or state',
+      placeholder: 'Type a brewery name',
       value,
       onChange: this.onChange,
       className: 'appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-4'
@@ -92,4 +97,19 @@ class BrewerySearch extends Component {
   }
 }
 
-export default BrewerySearch
+
+function mapStateToProps(state){
+    return {
+        brewery: state.brewery
+    };
+  }
+  
+  function mapDispatchToProps(dispatch){
+    return {
+        onSetFocusedBrewery(brewery){
+            dispatch(actions.setFocusedBrewery(brewery));
+        }
+    }
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(BrewerySearch);
