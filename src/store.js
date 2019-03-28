@@ -1,4 +1,4 @@
-import {getLocation, getLocalBreweriesList, getUserFavoritesFromDb, getUserDocumentId} from './API';
+import {getLocation, getLocalBreweriesList, getUserFavoritesFromDb, updateUserFavoritesInDb, removeFavoriteBreweryInDb, getUserDocumentId} from './API';
 
 const SET_INITIAL_POSITION = 'SET_INITIAL_POSITION';
 const SET_BREWERIES_LIST = 'SET_BREWERIES_LIST';
@@ -7,7 +7,9 @@ const SET_FOCUSED_BREWERY = 'SET_FOCUSED_BREWERY';
 const SET_USER_ACCOUNT = 'SET_USER_ACCOUNT';
 const CLEAR_USER_ACCOUNT = 'CLEAR_USER_ACCOUNT';
 const GET_USER_FAVORITES = 'GET_USER_FAVORITES';
+const UPDATE_USER_FAVORITES = 'UPDATE_USER_FAVORITES';
 const GET_USER_DOC_ID = 'GET_USER_DOC_ID';
+const REMOVE_FAVORITE_BREWERY = 'REMOVE_FAVORITE_BREWERY';
 
 const initialState = {
     location: {
@@ -64,25 +66,36 @@ export const actions = {
             payload: null,
         }
     },
-    getUserFavorites(uid){
-        return {
-            type: GET_USER_FAVORITES,
-            payload: getUserFavoritesFromDb(uid),
-        }
-    },
     getUserDocId(uid){
-        //getUserDocumentId(uid).then(data => console.log(data));
         return {
             type: GET_USER_DOC_ID,
             payload: getUserDocumentId(uid),
         }
+    },
+    getUserFavorites(docId){
+        return {
+            type: GET_USER_FAVORITES,
+            payload: getUserFavoritesFromDb(docId),
+        }
+    },
+    updateUserFavorites(docId, brewery){
+        return {
+            type: UPDATE_USER_FAVORITES,
+            payload: updateUserFavoritesInDb(docId, brewery),
+        }
+    },
+    removeFavoriteBrewery(docId, brewery){
+        return {
+            type: REMOVE_FAVORITE_BREWERY,
+            payload: removeFavoriteBreweryInDb(docId, brewery),
+        }
     }
+    
 };
-
 
 export function reducer(state = initialState, action){
     switch(action.type){
-        case SET_INITIAL_POSITION: {
+        case SET_INITIAL_POSITION+'_FULFILLED': {
             return {
                 ...state,
                 location: action.payload,
@@ -96,7 +109,7 @@ export function reducer(state = initialState, action){
                 mapCenter: action.payload
             }
         }
-        case SET_BREWERIES_LIST: {
+        case SET_BREWERIES_LIST+'_FULFILLED': {
             return {
                 ...state,
                 localBreweriesList: action.payload
@@ -117,21 +130,35 @@ export function reducer(state = initialState, action){
         case CLEAR_USER_ACCOUNT: {
             return {
                 ...state,
-                user: action.payload
+                localBreweriesList: [],
+                brewery: {},
+                user: null,
+                favoriteBreweries: [],
+                userDocId: null
             }
         }
-        case GET_USER_FAVORITES: {
-            console.log("REDUCER VALUE: " + action.payload);
+        case GET_USER_DOC_ID+'_FULFILLED': {
+            return {
+                ...state,
+                userDocId: action.payload
+            }
+        }
+        case GET_USER_FAVORITES+'_FULFILLED': {
             return {
                 ...state,
                 favoriteBreweries: action.payload
             }
         }
-        case GET_USER_DOC_ID: {
-
+        case REMOVE_FAVORITE_BREWERY+'_FULFILLED': {
             return {
                 ...state,
-                userDocId: action.payload
+                favoriteBreweries: action.payload
+            }
+        }
+        case UPDATE_USER_FAVORITES+'_FULFILLED': {
+            return {
+                ...state,
+                favoriteBreweries: action.payload
             }
         }
         default:

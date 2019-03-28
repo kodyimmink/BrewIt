@@ -2,8 +2,30 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'reactstrap';
 
-class Brewery extends PureComponent {
 
+import { connect } from 'react-redux';
+import { actions } from '../store';
+
+class Brewery extends PureComponent {
+  constructor(props) {
+    super(props);
+
+
+    this.updateFavBrewery = this.updateFavBrewery.bind(this);
+    this.removeFavBrewery = this.removeFavBrewery.bind(this);
+  }
+
+
+  updateFavBrewery(){
+    console.log("Brewery that we are adding to the database: " +  this.props.brewery);
+    this.props.onUpdateUserFavorites(this.props.userDocId, this.props.brewery)
+  }
+
+  removeFavBrewery(){
+    console.log("Brewery that we are removing from the database: " +  this.props.brewery);
+    this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.props.brewery)
+  }
+  
   render() {
     const { brewery } = this.props
     const {
@@ -63,7 +85,8 @@ class Brewery extends PureComponent {
             </address>
             { name ?
               <div>
-                <Button color="info">Favorite</Button>
+                <Button onClick={this.updateFavBrewery} color="info">Like</Button>
+                <Button onClick={this.removeFavBrewery} color="info">Unlike</Button>
               </div>
               : ''
             }
@@ -80,4 +103,22 @@ Brewery.propTypes = {
   brewery: PropTypes.object.isRequired
 }
 
-export default Brewery;
+function mapStateToProps(state){
+  return {
+      brewery: state.brewery,
+      userDocId: state.userDocId
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    onUpdateUserFavorites(docId, brewery){
+      dispatch(actions.updateUserFavorites(docId, brewery));
+    },
+    onRemoveFavoriteBrewery(docId, brewery){
+      dispatch(actions.removeFavoriteBrewery(docId, brewery));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Brewery);

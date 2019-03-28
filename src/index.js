@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from  'redux';
 import { reducer } from './store';
 import { logger } from 'redux-logger';
-import promiseMiddleware from 'redux-promise';
+import promise from 'redux-promise-middleware';
 
 import './index.css';
 import App from './App';
@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'leaflet/dist/leaflet.css'
 
 const middleware = compose(
-    applyMiddleware(promiseMiddleware, logger), 
+    applyMiddleware(promise, logger), 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const store = createStore(reducer, middleware);

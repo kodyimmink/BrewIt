@@ -21,7 +21,6 @@ const userLocation = L.icon({
   iconSize: [25, 41]
 });
 
-
 class BreweryMap extends Component{
   
    componentDidMount() {

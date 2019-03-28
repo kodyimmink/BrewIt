@@ -1,4 +1,4 @@
-import fire from './fire';
+import {fire} from './fire';
 const firebase = require("firebase");
 
 const firestoreRef = firebase.firestore();
@@ -24,9 +24,7 @@ export function getLocation() {
     });
   }
 
-
 export function getLocalBreweriesList(coords){
-
   function searchBreweries(searchTerm){
     return new Promise((resolve) => {    
       resolve(fetch('https://api.openbrewerydb.org/breweries/search?query='+searchTerm)
@@ -56,36 +54,48 @@ return getReverseLocation(coords).then(stateLocation => searchBreweries(stateLoc
 
 }
 
-export async function getUserFavoritesFromDb(uid){
-  const query = usersColRef.where("uid", "==", uid);
-  let resolvedVal;
+export function getUserFavoritesFromDb(docId){
+  const userDocRef = usersColRef.doc(docId);
   return new Promise((resolve) => { resolve(
-     query.get().then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        resolvedVal = doc.data().favorites;
-        console.log(resolvedVal);
-        return resolvedVal;
-      })
-      })
+    userDocRef.get().then(docSnap => {
+      console.log(docSnap.data().favorites);
+      return docSnap.data().favorites;
+    }).catch(error => console.error(error))
+    )
+  });
+}
 
-  )
-  })
-  }
+export function updateUserFavoritesInDb(docId, brewery){
+  const userDocRef = usersColRef.doc(docId);
+  return new Promise((resolve) => { resolve(
+    userDocRef.update({
+      favorites: firebase.firestore.FieldValue.arrayUnion(brewery)
+    }).then(function(){
+        return getUserFavoritesFromDb(docId);
+    }).catch(error => console.error(error))
+    )
+  });
+}
+
+export function removeFavoriteBreweryInDb(docId, brewery){
+  const userDocRef = usersColRef.doc(docId);
+  return new Promise((resolve) => { resolve(
+    userDocRef.update({
+      favorites: firebase.firestore.FieldValue.arrayRemove(brewery)
+    }).then(function(){
+        return getUserFavoritesFromDb(docId);
+    }).catch(error => console.error(error))
+    )
+  });
+}
 
 export function getUserDocumentId(uid){
   const query = usersColRef.where("uid", "==", uid);
   return new Promise(
-    (resolve) => {
-      resolve(
-        query.get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            return doc.id;
-          })
-          })
-        );
-      })  
+    (resolve) => { resolve(
+      query.get().then(querySnapshot => {
+        return querySnapshot.docs[0].id
+    }).catch(error => console.error(error))
+    )
+  });
 }
-
-  
-
-
