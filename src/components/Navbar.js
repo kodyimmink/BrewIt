@@ -5,6 +5,8 @@ import { auth, provider } from '../fire';
 import { connect } from 'react-redux';
 import { actions } from '../store';
 
+import FavoritesList from './FavoritesListDemo';
+
 import {
   Collapse,
   Navbar,
@@ -16,6 +18,30 @@ import {
   DropdownMenu,
   DropdownItem,
   Button } from 'reactstrap';
+
+
+  var divPadding = {
+    padding: "0px 10px 0px 0px",
+    width: "100%"
+  };
+
+
+
+//demo data delete
+const brewery = 
+      [
+        {
+        id: 1,
+        name: "The Pub",
+        website: "www.thebar.com"
+        },
+        {
+        id: 2,
+        name: "The Stool",
+        website: "www.brewery.com"
+        }
+      ];  
+  
 
 class BrewitNavbar extends React.Component {
   constructor(props) {
@@ -81,6 +107,9 @@ class BrewitNavbar extends React.Component {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <div style={divPadding}>
+                <FavoritesList breweries={brewery}/>
+              </div>
               {this.props.user ?
                 <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button>               
                 :
