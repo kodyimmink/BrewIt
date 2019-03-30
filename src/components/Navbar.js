@@ -5,7 +5,7 @@ import { auth, provider } from '../fire';
 import { connect } from 'react-redux';
 import { actions } from '../store';
 
-import FavoritesList from './FavoritesListDemo';
+import FavoritesList from './FavoritesList';
 
 import {
   Collapse,
@@ -19,29 +19,44 @@ import {
   DropdownItem,
   Button } from 'reactstrap';
 
-
-  var divPadding = {
-    padding: "0px 10px 0px 0px",
-    width: "100%"
-  };
-
-
-
-//demo data delete
-const brewery = 
-      [
-        {
-        id: 1,
-        name: "The Pub",
-        website: "www.thebar.com"
-        },
-        {
-        id: 2,
-        name: "The Stool",
-        website: "www.brewery.com"
-        }
-      ];  
+// demo data delete
+// const brewery = 
+//       [
+//         {
+//           brewery_type: "brewpub",
+//           city: "Ohiowa",
+//           country: "United States",
+//           id: 4216,
+//           latitude: null,
+//           longitude: null,
+//           name: "Lazy Horse Brewing",
+//           phone: "4023145266",
+//           postal_code: "68416-3005",
+//           state: "Nebraska",
+//           street: "211 Road 20",
+//           tag_list: [],
+//           updated_at: "2018-08-11T21:38:15.785Z",
+//           website_url: "http://lazyhorsebrewing.com",
+//         },
+//         {
+//           brewery_type: "micro",
+//           city: "Michigan City",
+//           country: "United States",
+//           id: 2731,
+//           latitude: "41.714577",
+//           longitude: "-86.8921678567784",
+//           name: "Zorn Brew Works",
+//           phone: "2193316322",
+//           postal_code: "46360-3651",
+//           state: "Indiana",
+//           street: "605 E 9th St",
+//           tag_list: [],
+//           updated_at: "2018-08-24T00:33:41.836Z",
+//           website_url: "http://www.zornbrewworks.com",
+//         }
+//       ];  
   
+      
 
 class BrewitNavbar extends React.Component {
   constructor(props) {
@@ -73,7 +88,12 @@ class BrewitNavbar extends React.Component {
       .then((result) => {
         this.props.onSetUserAccount(result.user);
         this.props.onGetUserDocId(this.props.user.uid);
-        //this.props.onGetUserFavorites(this.props.userDocId);
+
+        //this is still not async, I tried to implement but am unable to at the moment
+        //temporary solution until I can figure it out
+        setTimeout( function(){
+          this.props.onGetUserFavorites(this.props.userDocId);
+        }.bind(this), 1000);
     })
   }
     
@@ -82,7 +102,12 @@ class BrewitNavbar extends React.Component {
       if (user) {
         this.props.onSetUserAccount(user);
         this.props.onGetUserDocId(this.props.user.uid);
-        //this.props.onGetUserFavorites(this.props.userDocId)
+
+        //this is still not async, I tried to implement but am unable to at the moment
+        //temporary solution until I can figure it out
+        setTimeout( function(){
+          this.props.onGetUserFavorites(this.props.userDocId);
+        }.bind(this), 1000);
       } 
     });
   }
@@ -107,9 +132,11 @@ class BrewitNavbar extends React.Component {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <div style={divPadding}>
-                <FavoritesList breweries={brewery}/>
-              </div>
+              {this.props.haveUserFavorites ?
+                <div className="divPadding">
+                <FavoritesList breweries={this.props.favoriteBreweries}/>
+              </div>: ''
+              }
               {this.props.user ?
                 <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button>               
                 :
@@ -126,7 +153,9 @@ class BrewitNavbar extends React.Component {
 function mapStateToProps(state){
   return {
       user: state.user,
-      userDocId: state.userDocId
+      userDocId: state.userDocId,
+      favoriteBreweries: state.favoriteBreweries,
+      haveUserFavorites: state.haveUserFavorites
   };
 }
 

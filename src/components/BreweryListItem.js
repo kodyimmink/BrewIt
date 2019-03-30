@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Collapse, Card, CardBody, CardHeader } from 'reactstrap';
+import { Collapse, Card, CardBody, CardHeader } from 'reactstrap';
 
 export default class BreweryListItem extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class BreweryListItem extends React.Component {
     this.item = props.item;
     this.toggle = this.toggle.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.handleWebsiteClick = this.handleWebsiteClick.bind(this);
   }
 
   toggle() {
@@ -24,6 +25,10 @@ export default class BreweryListItem extends React.Component {
     this.setState(state => ({ collapse: !state.collapse }));
   }
 
+  handleWebsiteClick(){
+    console.log("Website Link Clicked!");
+  }
+
   render() {
     return (
       <div>
@@ -32,9 +37,11 @@ export default class BreweryListItem extends React.Component {
             <Card>
               <CardBody>
                 <ul>
-                  <li>{this.item.id}</li>
-                  <li>{this.item.name}</li>
-                  <li>{this.item.website}</li>
+                  <li>{this.item.street}<br />
+                      {this.item.city}, {this.item.state} {this.item.postal_code} <br />
+                  </li>
+                  <li>{this.item.phone}</li>
+                  <li><a href={this.item.website_url}>{this.item.website_url}</a></li>
                 </ul>
               </CardBody>
             </Card>

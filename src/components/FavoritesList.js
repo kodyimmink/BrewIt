@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Collapse, Card, CardBody, CardHeader } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ListGroup} from 'reactstrap';
 import BreweryListItem from './BreweryListItem';
 
 class FavoritesList extends React.Component {
@@ -41,10 +41,6 @@ class FavoritesList extends React.Component {
                 {this.listItems}
             </ListGroup>
           </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          </ModalFooter>
         </Modal>
       </div>
     );

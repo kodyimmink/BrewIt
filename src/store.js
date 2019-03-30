@@ -26,6 +26,7 @@ const initialState = {
     brewery: {},
     user: null,
     favoriteBreweries: [],
+    haveUserFavorites: false,
     userDocId: null
 };
 
@@ -66,16 +67,16 @@ export const actions = {
             payload: null,
         }
     },
-    getUserDocId(uid){
-        return {
-            type: GET_USER_DOC_ID,
-            payload: getUserDocumentId(uid),
-        }
-    },
     getUserFavorites(docId){
         return {
             type: GET_USER_FAVORITES,
             payload: getUserFavoritesFromDb(docId),
+        }
+    },
+    getUserDocId(uid){
+        return {
+            type: GET_USER_DOC_ID,
+            payload:getUserDocumentId(uid)
         }
     },
     updateUserFavorites(docId, brewery){
@@ -90,7 +91,6 @@ export const actions = {
             payload: removeFavoriteBreweryInDb(docId, brewery),
         }
     }
-    
 };
 
 export function reducer(state = initialState, action){
@@ -146,7 +146,8 @@ export function reducer(state = initialState, action){
         case GET_USER_FAVORITES+'_FULFILLED': {
             return {
                 ...state,
-                favoriteBreweries: action.payload
+                favoriteBreweries: action.payload,
+                haveUserFavorites: true,
             }
         }
         case REMOVE_FAVORITE_BREWERY+'_FULFILLED': {

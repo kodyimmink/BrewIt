@@ -85,8 +85,8 @@ class Brewery extends PureComponent {
             </address>
             { name ?
               <div>
-                <Button onClick={this.updateFavBrewery} color="info">Like</Button>
-                <Button onClick={this.removeFavBrewery} color="info">Unlike</Button>
+                <Button className="favButtons" onClick={this.updateFavBrewery} color="info">Like</Button>
+                <Button className="favButtons" onClick={this.removeFavBrewery} color="info">Unlike</Button>
               </div>
               : ''
             }

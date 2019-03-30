@@ -58,7 +58,7 @@ export function getUserFavoritesFromDb(docId){
   const userDocRef = usersColRef.doc(docId);
   return new Promise((resolve) => { resolve(
     userDocRef.get().then(docSnap => {
-      console.log(docSnap.data().favorites);
+      //console.log(docSnap.data().favorites);
       return docSnap.data().favorites;
     }).catch(error => console.error(error))
     )
