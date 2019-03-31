@@ -3,7 +3,7 @@ import React from 'react';
 function Footer(){
     return(
       <div className='pageFooter'>
-        <h3>TO-DO: put BrewIt general and contact info here</h3>
+        <h3>BrewIt was developed by a small team as a computer science software capstone project.</h3>
       </div>
     );
   }

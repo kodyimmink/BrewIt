@@ -19,44 +19,6 @@ import {
   DropdownItem,
   Button } from 'reactstrap';
 
-// demo data delete
-// const brewery = 
-//       [
-//         {
-//           brewery_type: "brewpub",
-//           city: "Ohiowa",
-//           country: "United States",
-//           id: 4216,
-//           latitude: null,
-//           longitude: null,
-//           name: "Lazy Horse Brewing",
-//           phone: "4023145266",
-//           postal_code: "68416-3005",
-//           state: "Nebraska",
-//           street: "211 Road 20",
-//           tag_list: [],
-//           updated_at: "2018-08-11T21:38:15.785Z",
-//           website_url: "http://lazyhorsebrewing.com",
-//         },
-//         {
-//           brewery_type: "micro",
-//           city: "Michigan City",
-//           country: "United States",
-//           id: 2731,
-//           latitude: "41.714577",
-//           longitude: "-86.8921678567784",
-//           name: "Zorn Brew Works",
-//           phone: "2193316322",
-//           postal_code: "46360-3651",
-//           state: "Indiana",
-//           street: "605 E 9th St",
-//           tag_list: [],
-//           updated_at: "2018-08-24T00:33:41.836Z",
-//           website_url: "http://www.zornbrewworks.com",
-//         }
-//       ];  
-  
-      
 
 class BrewitNavbar extends React.Component {
   constructor(props) {

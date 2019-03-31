@@ -134,7 +134,8 @@ export function reducer(state = initialState, action){
                 brewery: {},
                 user: null,
                 favoriteBreweries: [],
-                userDocId: null
+                userDocId: null,
+                haveUserFavorites: false,
             }
         }
         case GET_USER_DOC_ID+'_FULFILLED': {
