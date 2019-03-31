@@ -14,7 +14,6 @@ import {
   NavbarBrand,
   Nav,
   UncontrolledDropdown,
-  DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Button } from 'reactstrap';
@@ -85,9 +84,6 @@ class BrewitNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Settings
-                </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
                     Account Link

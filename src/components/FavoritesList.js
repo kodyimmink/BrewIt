@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ListGroup} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ListGroup, Badge} from 'reactstrap';
 import BreweryListItem from './BreweryListItem';
 
 class FavoritesList extends React.Component {
@@ -35,7 +35,15 @@ class FavoritesList extends React.Component {
             <div>
         <Button color="danger" size="lg" onClick={this.toggle} expand="lg">Favorites List</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Favorites List</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Favorites List <br />
+          <div> 
+            <Badge className='badgeMargin bg-dkblue text-white'>micro</Badge>
+            <Badge className='badgeMargin bg-lgblue text-white'>regional</Badge>
+            <Badge className='badgeMargin bg-orange text-white'>large</Badge>
+            <Badge className='badgeMargin bg-green text-white'>brewpub</Badge>
+            <Badge className='badgeMargin bg-grey text-white'>planning</Badge>
+          </div>
+          </ModalHeader>
           <ModalBody>
             <ListGroup>
                 {this.listItems}

@@ -52,15 +52,19 @@ class Brewery extends PureComponent {
 
     switch(brewery.brewery_type) {
       case 'micro':
-      case 'regional':
-      case 'large':
-        bgColor = 'bg-green text-white'
+        bgColor = 'bg-dkblue text-white'
         break
-      case 'brewpub':
+      case 'regional':
+        bgColor = 'bg-lgblue text-white'
+        break
+      case 'large':
         bgColor = 'bg-orange text-white'
         break
+      case 'brewpub':
+        bgColor = 'bg-green text-white'
+        break
       default:
-        bgColor = 'bg-grey-light text-grey'
+        bgColor = 'bg-grey-light text-white'
     }
 
 
@@ -92,7 +96,7 @@ class Brewery extends PureComponent {
             }
           </div>
           :
-          <span>No brewery selected.</span>
+          <span className='bg-grey-light text-white'>No brewery selected.</span>
         }
       </div>
     )

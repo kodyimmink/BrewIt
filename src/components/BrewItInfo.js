@@ -10,8 +10,8 @@ function BrewItInfo(){
         <h2>How to use</h2>
         <ul>
           <li>Click any beer mug on the map to find more information.</li>
-          <li>Click on your marker to find out your coordinates.</li>
           <li>Use the search bar to find a specific brewery.</li>
+          <li>Create a list of favorite breweries by liking breweries you want to keep track of</li>
         </ul>
       </div> 
     );

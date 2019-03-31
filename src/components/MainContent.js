@@ -9,7 +9,7 @@ function MainContent(){
         <main>
           <BrewItInfo />
           <div className='searchBox'>
-            <BrewerySearch />
+              <BrewerySearch />
           </div>
           <BreweryMap />
         </main>

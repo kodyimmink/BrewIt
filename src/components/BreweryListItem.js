@@ -29,19 +29,43 @@ export default class BreweryListItem extends React.Component {
     console.log("Website Link Clicked!");
   }
 
+  
+
   render() {
+    let bgColor
+
+    switch(this.item.brewery_type) {
+      case 'micro':
+        bgColor = 'bg-dkblue text-white'
+        break
+      case 'regional':
+        bgColor = 'bg-lgblue text-white'
+        break
+      case 'large':
+        bgColor = 'bg-orange text-white'
+        break
+      case 'brewpub':
+        bgColor = 'bg-green text-white'
+        break
+      default:
+        bgColor = 'bg-grey-light text-white'
+    }
+
+
     return (
       <div>
-        <CardHeader onClick={this.toggleCollapse}>{this.item.name}</CardHeader>
+        <CardHeader className={bgColor} onClick={this.toggleCollapse}>{this.item.name}</CardHeader>
           <Collapse isOpen={this.state.collapse}>
             <Card>
               <CardBody>
                 <ul>
-                  <li>{this.item.street}<br />
-                      {this.item.city}, {this.item.state} {this.item.postal_code} <br />
-                  </li>
-                  <li>{this.item.phone}</li>
-                  <li><a href={this.item.website_url}>{this.item.website_url}</a></li>
+                  { true ? <li><b>Address: </b>{this.item.street}<br />
+                  {this.item.city}, {this.item.state} {this.item.postal_code} <br />
+                  </li> : '' }
+                  { this.item.phone !== '' ? <li><b>Phone: </b>{this.item.phone}</li> : ''}
+                  { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url}>{this.item.website_url}</a></li>: ''}
+                  { this.item.street === '' && this.item.city === '' && this.item.state === '' && this.item.postal_code === '' && 
+                    this.item.phone === '' && this.item.website_url === ''? <li><b>No information is availble</b></li>: ''}
                 </ul>
               </CardBody>
             </Card>
