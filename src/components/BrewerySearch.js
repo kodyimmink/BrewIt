@@ -81,7 +81,7 @@ class BrewerySearch extends Component {
     };
 
     return (
-      <div className="mb-4">
+      <div className="mb-4 searchBox">
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

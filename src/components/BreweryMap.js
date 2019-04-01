@@ -37,7 +37,7 @@ class BreweryMap extends Component{
         animate={true}
         zoomControl={false}
         worldCopyJump={true}
-        center={position}
+        center={this.props.mapCenter}
         zoom={this.props.zoom}
         >
         <TileLayer
@@ -85,7 +85,8 @@ function mapStateToProps(state){
       location: state.location,
       haveUsersLocation: state.haveUsersLocation,
       zoom: state.zoom,
-      localBreweriesList: state.localBreweriesList
+      localBreweriesList: state.localBreweriesList,
+      mapCenter: state.mapCenter,
   };
 }
 

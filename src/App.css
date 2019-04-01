@@ -16,6 +16,19 @@
 
 }
 
+.row {
+  display: flex;
+  text-align: center;
+}
+
+.column {
+  flex: 50%;
+}
+
+.columnThree {
+  flex: 33%;
+}
+
 .mainContent{
   height: 100%;
   width: 100%;

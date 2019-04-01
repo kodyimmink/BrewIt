@@ -1,0 +1,83 @@
+import React, { Component } from 'react'
+
+import { debounce } from 'throttle-debounce'
+import Autosuggest from 'react-autosuggest'
+import Brewery from '../components/Brewery';
+
+import { connect } from 'react-redux';
+import { actions } from '../store';
+
+
+function getSuggestionValue(suggestion){
+  return suggestion.name;
+}
+
+const renderSuggestion = suggestion => (
+  <div className="text-lg p-4">
+    {suggestion.name}
+  </div>
+);
+
+const debouncedGetSuggestions = debounce(500, this.props.onGetSearchSuggestion)
+
+function onSuggestionsFetchRequested({value}){
+  debouncedGetSuggestions(value);
+}
+
+class BrewerySearch extends Component {
+
+  render() {
+    const suggestions = this.props.suggestions;
+    console.log("logging: "+suggestions);
+
+    const inputProps = {
+      placeholder: 'Type a brewery name or state',
+      value: this.props.value,
+      onChange: this.props.onSearchTextChanged,
+      className: 'appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline mb-4'
+    };
+
+    return (
+      <div className="mb-4">
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.props.onClearAllSuggestions}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+          onSuggestionSelected={this.props.onSetSuggestedBrewery}
+        />
+          <Brewery brewery={this.props.brewery} />
+
+      </div>
+    )
+  }
+}
+
+function mapStateToProps(state){
+  return {
+    value: state.value,
+    brewery: state.brewery,
+    suggestions: state.suggestions
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+      onGetSearchSuggestion(searchParameter){
+        dispatch(actions.getSearchSuggestion(searchParameter));
+      },
+      onSearchTextChanged({value}){
+        dispatch(actions.searchTextChanged({value}));
+      },
+      onClearAllSuggestions(){
+        dispatch(actions.clearAllSuggestions());
+      },
+      onSetSuggestedBrewery({suggestion}){
+        dispatch(actions.setSuggestedBrewery(suggestion));
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrewerySearch);

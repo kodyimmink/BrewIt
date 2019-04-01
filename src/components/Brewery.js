@@ -13,6 +13,7 @@ class Brewery extends PureComponent {
 
     this.updateFavBrewery = this.updateFavBrewery.bind(this);
     this.removeFavBrewery = this.removeFavBrewery.bind(this);
+    this.updateMapCenter = this.updateMapCenter.bind(this);
   }
 
 
@@ -24,6 +25,20 @@ class Brewery extends PureComponent {
   removeFavBrewery(){
     console.log("Brewery that we are removing from the database: " +  this.props.brewery);
     this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.props.brewery)
+  }
+
+  updateMapCenter(){
+    let coords = {
+      lat: this.props.brewery.latitude,
+      lng: this.props.brewery.longitude,
+    }
+    if (coords.lat === null || coords.lng === null){
+      coords = {
+        lat: this.props.location.lat,
+        lng: this.props.location.lng,
+      }
+    }
+    this.props.onUpdateMapCenter(coords)
   }
   
   render() {
@@ -69,7 +84,7 @@ class Brewery extends PureComponent {
 
 
     return (
-      <div className={`p-4 mb-2 rounded ${bgColor}`}>
+      <div onClick={this.updateMapCenter} className={`p-4 mb-2 rounded ${bgColor}`}>
         { (Object.keys(brewery).length !== 0) ?
           <div>
             <address className="roman">
@@ -87,13 +102,21 @@ class Brewery extends PureComponent {
               <br>
               </br>
             </address>
-            { name ?
-              <div>
-                <Button className="favButtons" onClick={this.updateFavBrewery} color="info">Like</Button>
-                <Button className="favButtons" onClick={this.removeFavBrewery} color="info">Unlike</Button>
+              <div className='row'>
+                  <div className='columnThree'>
+                  <Button onClick={this.updateFavBrewery} color="info">Like</Button>
+                  </div>
+                  <div className='columnThree'>
+                  <Button onClick={this.removeFavBrewery} color="info">Unlike</Button>
+                  </div>
+                  <div className='columnThree'>
+                  {
+                    this.props.brewery.latitude !== null || this.props.brewery.longitude !== null ? 
+                    <Button onClick={this.updateMapCenter} size='md' color="info">See on Map</Button>
+                    : ''
+                  }
+                  </div>
               </div>
-              : ''
-            }
           </div>
           :
           <span className='bg-grey-light text-white'>No brewery selected.</span>
@@ -110,7 +133,8 @@ Brewery.propTypes = {
 function mapStateToProps(state){
   return {
       brewery: state.brewery,
-      userDocId: state.userDocId
+      userDocId: state.userDocId,
+      location: state.location
   };
 }
 
@@ -121,6 +145,9 @@ function mapDispatchToProps(dispatch){
     },
     onRemoveFavoriteBrewery(docId, brewery){
       dispatch(actions.removeFavoriteBrewery(docId, brewery));
+    },
+    onUpdateMapCenter(coords){
+      dispatch(actions.setMapCenter(coords));
     }
   }
 }

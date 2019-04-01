@@ -2,7 +2,7 @@ import {getLocation, getLocalBreweriesList, getUserFavoritesFromDb, updateUserFa
 
 const SET_INITIAL_POSITION = 'SET_INITIAL_POSITION';
 const SET_BREWERIES_LIST = 'SET_BREWERIES_LIST';
-const SET_MAP_CENTER = 'SET_MAP_POSITION';
+const SET_MAP_CENTER = 'SET_MAP_CENTER';
 const SET_FOCUSED_BREWERY = 'SET_FOCUSED_BREWERY';
 const SET_USER_ACCOUNT = 'SET_USER_ACCOUNT';
 const CLEAR_USER_ACCOUNT = 'CLEAR_USER_ACCOUNT';
@@ -17,8 +17,8 @@ const initialState = {
         lng: -83.6194481,
     },
     mapCenter: {
-        lat: 0,
-        lng: 0,
+        lat: 42.9918511,
+        lng: -83.6194481,
     },
     haveUsersLocation: false,
     zoom: 2,
@@ -37,10 +37,10 @@ export const actions = {
             payload: getLocation(),
         }
     },
-    setMapCenter(newMapCenter){
+    setMapCenter(coords){
         return{
             type: SET_MAP_CENTER,
-            payload: newMapCenter,
+            payload: coords,
         }
     },
     setBreweriesList(coords){
@@ -106,7 +106,8 @@ export function reducer(state = initialState, action){
         case SET_MAP_CENTER: {
             return {
                 ...state,
-                mapCenter: action.payload
+                mapCenter: action.payload,
+                zoom: 10,
             }
         }
         case SET_BREWERIES_LIST+'_FULFILLED': {

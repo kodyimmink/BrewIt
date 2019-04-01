@@ -92,7 +92,7 @@ class BrewitNavbar extends React.Component {
               </UncontrolledDropdown>
               {this.props.haveUserFavorites ?
                 <div className="divPadding">
-                <FavoritesList breweries={this.props.favoriteBreweries}/>
+                <FavoritesList />
               </div>: ''
               }
               {this.props.user ?

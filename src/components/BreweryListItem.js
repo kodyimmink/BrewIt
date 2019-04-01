@@ -1,7 +1,10 @@
 import React from 'react';
-import { Collapse, Card, CardBody, CardHeader } from 'reactstrap';
+import { Button, Collapse, Card, CardBody, CardHeader } from 'reactstrap';
 
-export default class BreweryListItem extends React.Component {
+import { connect } from 'react-redux';
+import { actions } from '../store';
+
+class BreweryListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +15,8 @@ export default class BreweryListItem extends React.Component {
     this.item = props.item;
     this.toggle = this.toggle.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.handleWebsiteClick = this.handleWebsiteClick.bind(this);
+    this.removeFavorite = this.removeFavorite.bind(this);
+    this.updateMapCenter = this.updateMapCenter.bind(this);
   }
 
   toggle() {
@@ -24,12 +28,19 @@ export default class BreweryListItem extends React.Component {
   toggleCollapse() {
     this.setState(state => ({ collapse: !state.collapse }));
   }
-
-  handleWebsiteClick(){
-    console.log("Website Link Clicked!");
+  
+  removeFavorite(){
+    console.log("Removed Favorite");
+    this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.item)
   }
 
-  
+  updateMapCenter(){
+    const coords = {
+      lat: this.item.latitude,
+      lng: this.item.longitude,
+    }
+    this.props.onUpdateMapCenter(coords)
+  }
 
   render() {
     let bgColor
@@ -63,10 +74,23 @@ export default class BreweryListItem extends React.Component {
                   {this.item.city}, {this.item.state} {this.item.postal_code} <br />
                   </li> : '' }
                   { this.item.phone !== '' ? <li><b>Phone: </b>{this.item.phone}</li> : ''}
-                  { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url}>{this.item.website_url}</a></li>: ''}
+                  { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url} target="_blank" >{this.item.website_url}</a></li>: ''}
                   { this.item.street === '' && this.item.city === '' && this.item.state === '' && this.item.postal_code === '' && 
                     this.item.phone === '' && this.item.website_url === ''? <li><b>No information is availble</b></li>: ''}
                 </ul>
+                <br />
+                <div className='row'>
+                  <div className='column'>
+                  <Button onClick={this.removeFavorite} size='md' color="info">Remove</Button>
+                  </div>
+                  <div className='column'>
+                  {
+                    this.item.latitude !== null || this.item.longitude !== null ? 
+                    <Button onClick={this.updateMapCenter} size='md' color="info">See on Map</Button>
+                    : ''
+                  }
+                  </div>
+              </div>
               </CardBody>
             </Card>
           </Collapse>
@@ -74,3 +98,22 @@ export default class BreweryListItem extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+      userDocId: state.userDocId
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    onRemoveFavoriteBrewery(docId, brewery){
+      dispatch(actions.removeFavoriteBrewery(docId, brewery));
+    },
+    onUpdateMapCenter(coords){
+      dispatch(actions.setMapCenter(coords));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BreweryListItem);

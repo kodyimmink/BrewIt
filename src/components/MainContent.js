@@ -8,9 +8,7 @@ function MainContent(){
       <div className='mainContent'>
         <main>
           <BrewItInfo />
-          <div className='searchBox'>
-              <BrewerySearch />
-          </div>
+          <BrewerySearch />
           <BreweryMap />
         </main>
       </div> 
