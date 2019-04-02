@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Collapse, Card, CardBody, CardHeader } from 'reactstrap';
+import StarRating from './StarRating';
 
 import { connect } from 'react-redux';
 import { actions } from '../store';
@@ -75,6 +76,7 @@ class BreweryListItem extends React.Component {
                   </li> : '' }
                   { this.item.phone !== '' ? <li><b>Phone: </b>{this.item.phone}</li> : ''}
                   { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url} target="_blank" >{this.item.website_url}</a></li>: ''}
+                  <li><StarRating userId={this.props.user.uid} item={this.item}/></li>
                   { this.item.street === '' && this.item.city === '' && this.item.state === '' && this.item.postal_code === '' && 
                     this.item.phone === '' && this.item.website_url === ''? <li><b>No information is availble</b></li>: ''}
                 </ul>
@@ -101,7 +103,8 @@ class BreweryListItem extends React.Component {
 
 function mapStateToProps(state){
   return {
-      userDocId: state.userDocId
+      userDocId: state.userDocId,
+      user: state.user
   };
 }
 

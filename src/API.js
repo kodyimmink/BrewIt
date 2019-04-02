@@ -2,7 +2,8 @@ import {fire} from './fire';
 const firebase = require("firebase");
 
 const firestoreRef = firebase.firestore();
-const usersColRef = firestoreRef.collection('users'); 
+const usersColRef = firestoreRef.collection('users');
+const ratingsColRef = firestoreRef.collection('ratings');  
 
 export function getLocation() {
     return new Promise((resolve) => {
@@ -95,6 +96,49 @@ export function getUserDocumentId(uid){
     (resolve) => { resolve(
       query.get().then(querySnapshot => {
         return querySnapshot.docs[0].id
+    }).catch(error => console.error(error))
+    )
+  });
+}
+
+export function addBreweryRatingToDb(breweryId, userRating, userId){
+  const query = ratingsColRef.where("userId", "==", userId).where("breweryId", "==", breweryId);
+  let ratingsDocRef;
+  query.get().then(querySnapshot => {
+    if (querySnapshot.empty)
+    {
+      ratingsColRef.add(
+          {
+            userId: userId,
+            breweryId: breweryId,
+            userRating: userRating,
+          }
+      )
+    }
+    else{
+      ratingsDocRef = querySnapshot.docs[0].ref
+      ratingsDocRef.update(
+        {
+          userId: userId,
+          breweryId: breweryId,
+          userRating: userRating,
+        }
+      )
+    }
+  }).catch(error => console.error(error))
+}
+
+export function getBreweryRating(breweryId, userId){
+  const query = ratingsColRef.where("userId", "==", userId).where("breweryId", "==", breweryId);
+  return new Promise(
+    (resolve) => { resolve(
+      query.get().then(querySnapshot => {
+        if(querySnapshot.empty){
+          return 0;
+        }
+        else{
+          return querySnapshot.docs[0].data().userRating;
+        }
     }).catch(error => console.error(error))
     )
   });

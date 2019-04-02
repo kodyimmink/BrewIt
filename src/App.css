@@ -29,6 +29,10 @@
   flex: 33%;
 }
 
+.starRating{
+  vertical-align: middle;
+}
+
 .mainContent{
   height: 100%;
   width: 100%;
