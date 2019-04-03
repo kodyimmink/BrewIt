@@ -84,7 +84,7 @@ class BreweryListItem extends React.Component {
                   <Button onClick={this.removeFavorite} size='md' color="info">Remove</Button>
                   </div>
                   <div className='columnThree'>
-                    <ReviewModal brewery={this.item}/> 
+                    <ReviewModal userId={this.props.user.uid} brewery={this.item}/> 
                   </div>
                   <div className='columnThree'>
                   {

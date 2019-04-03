@@ -1,6 +1,8 @@
 import React from 'react';
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, FormGroup} from 'reactstrap';
+import {Modal, ModalHeader, ModalBody, Button, Input, Form, FormGroup} from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import StarRating from './StarRating';
+import { addBreweryReviewToDb, getBreweryReview } from '../API'
 
 import { connect } from 'react-redux';
 import { actions } from '../store';
@@ -10,33 +12,78 @@ class ReviewModal extends React.Component {
     super();
     this.state = {
       reviewModal: false,
+      reviewText: null,
+      userId: null,
+      breweryId: null,
     };
     this.toggle = this.toggle.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onStarClick = this.onStarClick.bind(this);
   }
 
+  componentDidMount(){
+    getBreweryReview(this.props.brewery.id, this.props.userId)
+    .then(reviewText => {
+      this.setState(
+      {
+        reviewText: reviewText,
+        userId: this.props.userId,
+        breweryId: this.props.brewery.id,
+      }
+      , () => {console.log(this.state.reviewText)}
+    )
+  })
+  }
+  
   toggle() {
     this.setState({
-      reviewModal: !this.state.reviewModal,
+      reviewModal: !this.state.reviewModal
     })
   }
+
+  handleChange = (e) => {
+    this.setState({
+        reviewText: e.target.value,
+    })
+  }
+
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({rating: nextValue});
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const review = {
+      reviewText: this.state.reviewText,
+      userId: this.state.userId,
+      breweryId: this.state.breweryId,
+    }
+    addBreweryReviewToDb(review.breweryId, review.reviewText, review.userId);
+    //database.push(review);
+    console.log(review);
+    this.setState({
+        reviewModal: false,
+    })
+ }
  
+
+
+
   render() {
     return (
         <div>
           <Button onClick={this.toggle} size='md' color="info">Review</Button>
-            <Modal isOpen={this.state.reviewModal} toggle={this.toggle}>
+            <Modal isOpen={this.state.reviewModal} toggle={this.toggle} size='lg'>
               <ModalHeader>Review: {this.props.brewery.name}</ModalHeader>
                 <ModalBody>
-                  <FormGroup>
+                  <AvForm>
+                      <p>{this.state.reviewText}</p> 
                     <StarRating userId={this.props.user.uid} item={this.props.brewery}/>
-                  </FormGroup>
-                  <FormGroup>
-                    <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+                      <AvField onChange={e => this.handleChange(e)} name="reviewText" type="textarea" validate={{maxLength: {value: 1000}}} />
+                    <Button onClick={(e) => this.onSubmit(e)} type="submit" color="info">Submit</Button>
+                  </AvForm>
                 </ModalBody>
-                <ModalFooter>
-                <Button color="primary">Submit</Button>{' '}
-              </ModalFooter>
             </Modal>
         </div>
       );

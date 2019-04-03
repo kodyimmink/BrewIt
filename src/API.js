@@ -4,6 +4,7 @@ const firebase = require("firebase");
 const firestoreRef = firebase.firestore();
 const usersColRef = firestoreRef.collection('users');
 const ratingsColRef = firestoreRef.collection('ratings');  
+const reviewsColRef = firestoreRef.collection('reviews');  
 
 export function getLocation() {
     return new Promise((resolve) => {
@@ -101,6 +102,10 @@ export function getUserDocumentId(uid){
   });
 }
 
+
+//Ratings
+//**********************************************************************//
+
 export function addBreweryRatingToDb(breweryId, userRating, userId){
   const query = ratingsColRef.where("userId", "==", userId).where("breweryId", "==", breweryId);
   let ratingsDocRef;
@@ -138,6 +143,53 @@ export function getBreweryRating(breweryId, userId){
         }
         else{
           return querySnapshot.docs[0].data().userRating;
+        }
+    }).catch(error => console.error(error))
+    )
+  });
+}
+
+
+//Reviews
+//**********************************************************************//
+
+export function addBreweryReviewToDb(breweryId, userReview, userId){
+  const query = reviewsColRef.where("userId", "==", userId).where("breweryId", "==", breweryId);
+  let reviewsDocRef;
+  query.get().then(querySnapshot => {
+    if (querySnapshot.empty)
+    {
+      reviewsColRef.add(
+          {
+            userId: userId,
+            breweryId: breweryId,
+            userReview: userReview,
+          }
+      )
+    }
+    else{
+      reviewsDocRef = querySnapshot.docs[0].ref
+      reviewsDocRef.update(
+        {
+          userId: userId,
+          breweryId: breweryId,
+          userReview: userReview,
+        }
+      )
+    }
+  }).catch(error => console.error(error))
+}
+
+export function getBreweryReview(breweryId, userId){
+  const query = reviewsColRef.where("userId", "==", userId).where("breweryId", "==", breweryId);
+  return new Promise(
+    (resolve) => { resolve(
+      query.get().then(querySnapshot => {
+        if(querySnapshot.empty){
+          return null;
+        }
+        else{
+          return querySnapshot.docs[0].data().userReview;
         }
     }).catch(error => console.error(error))
     )

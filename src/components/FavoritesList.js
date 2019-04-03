@@ -25,7 +25,7 @@ class FavoritesList extends React.Component {
     render() {
         return (
           <div>
-            <Modal isOpen={this.props.favoriteModal} toggle={this.toggle}>
+            <Modal isOpen={this.props.favoriteModal} toggle={this.toggle} size='lg'>
               <ModalHeader toggle={this.toggle}>My Breweries<br />
               <div> 
                 <Badge className='badgeMargin bg-dkblue text-white'>micro</Badge>
