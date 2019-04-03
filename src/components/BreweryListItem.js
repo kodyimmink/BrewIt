@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Collapse, Card, CardBody, CardHeader } from 'reactstrap';
 import StarRating from './StarRating';
+import ReviewModal from './ReviewModal';
 
 import { connect } from 'react-redux';
 import { actions } from '../store';
@@ -9,21 +10,14 @@ class BreweryListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
       collapse: false
     };
 
     this.item = props.item;
-    this.toggle = this.toggle.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.removeFavorite = this.removeFavorite.bind(this);
     this.updateMapCenter = this.updateMapCenter.bind(this);
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+    this.openReviewModal = this.openReviewModal.bind(this);
   }
 
   toggleCollapse() {
@@ -41,6 +35,10 @@ class BreweryListItem extends React.Component {
       lng: this.item.longitude,
     }
     this.props.onUpdateMapCenter(coords)
+  }
+
+  openReviewModal() {
+    this.props.onToggleReviewModal(this.props.reviewModal);
   }
 
   render() {
@@ -82,13 +80,16 @@ class BreweryListItem extends React.Component {
                 </ul>
                 <br />
                 <div className='row'>
-                  <div className='column'>
+                  <div className='columnThree'>
                   <Button onClick={this.removeFavorite} size='md' color="info">Remove</Button>
                   </div>
-                  <div className='column'>
+                  <div className='columnThree'>
+                    <ReviewModal brewery={this.item}/> 
+                  </div>
+                  <div className='columnThree'>
                   {
                     this.item.latitude !== null || this.item.longitude !== null ? 
-                    <Button onClick={this.updateMapCenter} size='md' color="info">See on Map</Button>
+                    <Button onClick={this.updateMapCenter} size='md' color="info">Map</Button>
                     : ''
                   }
                   </div>
@@ -104,7 +105,7 @@ class BreweryListItem extends React.Component {
 function mapStateToProps(state){
   return {
       userDocId: state.userDocId,
-      user: state.user
+      user: state.user,
   };
 }
 

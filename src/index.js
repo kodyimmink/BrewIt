@@ -16,7 +16,7 @@ import 'leaflet/dist/leaflet.css'
 
 const middleware = compose(
     applyMiddleware(promise, thunk, logger)
-    // ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
 const store = createStore(reducer, middleware);

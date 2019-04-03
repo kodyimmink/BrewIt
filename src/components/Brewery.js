@@ -84,7 +84,7 @@ class Brewery extends PureComponent {
 
 
     return (
-      <div onClick={this.updateMapCenter} className={`p-4 mb-2 rounded ${bgColor}`}>
+      <div className={`p-4 mb-2 rounded ${bgColor}`}>
         { (Object.keys(brewery).length !== 0) ?
           <div>
             <address className="roman">

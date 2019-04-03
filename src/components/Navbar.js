@@ -26,6 +26,7 @@ class BrewitNavbar extends React.Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleFavModal = this.toggleFavModal.bind(this);
     this.state = {
       isOpen: false,
     };
@@ -57,6 +58,12 @@ class BrewitNavbar extends React.Component {
         }.bind(this), 1000);
     })
   }
+
+  toggleFavModal() {
+    this.props.onToggleFavoritesModal(this.props.favoriteModal);
+    
+  }
+
     
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
@@ -90,16 +97,25 @@ class BrewitNavbar extends React.Component {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              {this.props.haveUserFavorites ?
-                <div className="divPadding">
-                <FavoritesList />
-              </div>: ''
-              }
-              {this.props.user ?
-                <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button>               
-                :
-                <Button color="primary" size="lg" onClick={this.login}>Login</Button>            
-              }
+              <div className="row">
+                {this.props.haveUserFavorites ?
+                  <div>
+                  <Button color="danger" size="lg" onClick={this.toggleFavModal} >My Breweries</Button>
+                    <FavoritesList />
+                  </div> 
+                  : 
+                  null
+                }
+                {this.props.user ?
+                  <div>
+                    <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button>  
+                  </div>
+                  :
+                  <div>
+                    <Button color="primary" size="lg" onClick={this.login}>Login</Button>
+                  </div>            
+                }
+              </div>
             </Nav>
           </Collapse>
         </Navbar>
@@ -113,7 +129,8 @@ function mapStateToProps(state){
       user: state.user,
       userDocId: state.userDocId,
       favoriteBreweries: state.favoriteBreweries,
-      haveUserFavorites: state.haveUserFavorites
+      haveUserFavorites: state.haveUserFavorites,
+      favoriteModal: state.favoriteModal
   };
 }
 
@@ -130,7 +147,10 @@ function mapDispatchToProps(dispatch){
       },
       onGetUserFavorites(docId){
         dispatch(actions.getUserFavorites(docId));
-      }
+      },
+      onToggleFavoritesModal(modalBool){
+        dispatch(actions.toggleFavoritesModal(modalBool));
+      },
   }
 }
 

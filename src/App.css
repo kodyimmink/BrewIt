@@ -19,6 +19,7 @@
 .row {
   display: flex;
   text-align: center;
+  padding: 15px;
 }
 
 .column {
@@ -39,7 +40,8 @@
 }
 
 .searchBox{
-  margin: 20px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .pageFooter{

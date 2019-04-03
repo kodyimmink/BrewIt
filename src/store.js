@@ -10,6 +10,7 @@ const GET_USER_FAVORITES = 'GET_USER_FAVORITES';
 const UPDATE_USER_FAVORITES = 'UPDATE_USER_FAVORITES';
 const GET_USER_DOC_ID = 'GET_USER_DOC_ID';
 const REMOVE_FAVORITE_BREWERY = 'REMOVE_FAVORITE_BREWERY';
+const TOGGLE_FAVORITES_MODAL = 'TOGGLE_FAVORITES_MODAL';
 
 const initialState = {
     location: {
@@ -27,7 +28,8 @@ const initialState = {
     user: null,
     favoriteBreweries: [],
     haveUserFavorites: false,
-    userDocId: null
+    userDocId: null,
+    favoriteModal: false
 };
 
 export const actions = {
@@ -90,7 +92,13 @@ export const actions = {
             type: REMOVE_FAVORITE_BREWERY,
             payload: removeFavoriteBreweryInDb(docId, brewery),
         }
-    }
+    },
+    toggleFavoritesModal(modalBool){
+        return {
+            type: TOGGLE_FAVORITES_MODAL,
+            payload: !modalBool
+        }
+    },
 };
 
 export function reducer(state = initialState, action){
@@ -131,7 +139,6 @@ export function reducer(state = initialState, action){
         case CLEAR_USER_ACCOUNT: {
             return {
                 ...state,
-                localBreweriesList: [],
                 brewery: {},
                 user: null,
                 favoriteBreweries: [],
@@ -162,6 +169,12 @@ export function reducer(state = initialState, action){
             return {
                 ...state,
                 favoriteBreweries: action.payload
+            }
+        }
+        case TOGGLE_FAVORITES_MODAL: {
+            return {
+                ...state,
+                favoriteModal: action.payload
             }
         }
         default:
