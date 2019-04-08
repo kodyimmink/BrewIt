@@ -10,8 +10,8 @@ class FavoritesList extends React.Component {
       super(props);
       this.state = {};
 
-      this.breweries = this.props.favoriteBreweries
-      this.listItems = this.breweries.map((brewery) =>                             
+      //this.breweries = this.props.favoriteBreweries
+      this.listItems = this.props.favoriteBreweries.map((brewery) =>                             
         <BreweryListItem key={brewery.id} item={brewery} /> );
 
       this.toggle = this.toggle.bind(this);
@@ -28,11 +28,11 @@ class FavoritesList extends React.Component {
             <Modal isOpen={this.props.favoriteModal} toggle={this.toggle} size='lg'>
               <ModalHeader toggle={this.toggle}>My Breweries<br />
               <div> 
-                <Badge className='badgeMargin bg-dkblue text-white'>micro</Badge>
-                <Badge className='badgeMargin bg-lgblue text-white'>regional</Badge>
-                <Badge className='badgeMargin bg-orange text-white'>large</Badge>
-                <Badge className='badgeMargin bg-green text-white'>brewpub</Badge>
-                <Badge className='badgeMargin bg-grey text-white'>planning</Badge>
+                <Badge className='badgeMargin bg-dkblue text-white'>micro</Badge>{' '}
+                <Badge className='badgeMargin bg-lgblue text-white'>regional</Badge>{' '}
+                <Badge className='badgeMargin bg-orange text-white'>large</Badge>{' '}
+                <Badge className='badgeMargin bg-green text-white'>brewpub</Badge>{' '}
+                <Badge className='badgeMargin bg-grey text-white'>planning</Badge>{' '}
               </div>
               </ModalHeader>
               <ModalBody>

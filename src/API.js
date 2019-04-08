@@ -7,6 +7,7 @@ const ratingsColRef = firestoreRef.collection('ratings');
 const reviewsColRef = firestoreRef.collection('reviews');  
 
 export function getLocation() {
+
     return new Promise((resolve) => {
       navigator.geolocation.getCurrentPosition((position) => {
         resolve({
@@ -23,7 +24,7 @@ export function getLocation() {
             };
           }));
       });
-    });
+    }).then(data => {return data});
   }
 
 export function getLocalBreweriesList(coords){

@@ -3,7 +3,8 @@
 }
 
 .myInfo{
-  margin: 20px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .leaflet-container {
@@ -138,6 +139,7 @@
 
   .bg-green {
     background-color: #38c172 !important ;
+    border-color: #38c172 !important;
   }
 
   .bg-dkblue {
@@ -153,7 +155,7 @@
   }
 
   .bg-orange {
-    background-color: #f6993f !important ;
+    background-color: #EC7D10 !important ;
   }
 
   .bg-grey-light {
@@ -174,4 +176,8 @@
 
   .font-bold {
     font-weight: 700;
+  }
+
+  .buttonMargin{
+    margin: 0px 10px 0px 0px!important;
   }

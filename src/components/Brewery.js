@@ -18,13 +18,13 @@ class Brewery extends PureComponent {
 
 
   updateFavBrewery(){
-    console.log("Brewery that we are adding to the database: " +  this.props.brewery);
-    this.props.onUpdateUserFavorites(this.props.userDocId, this.props.brewery)
+    this.props.onUpdateUserFavorites(this.props.userDocId, this.props.brewery);
+    this.props.onGetUserFavorites(this.props.userDocId);
   }
 
   removeFavBrewery(){
-    console.log("Brewery that we are removing from the database: " +  this.props.brewery);
-    this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.props.brewery)
+    this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.props.brewery);
+    this.props.onGetUserFavorites(this.props.userDocId);
   }
 
   updateMapCenter(){
@@ -148,6 +148,9 @@ function mapDispatchToProps(dispatch){
     },
     onUpdateMapCenter(coords){
       dispatch(actions.setMapCenter(coords));
+    },
+    onGetUserFavorites(docId){
+      dispatch(actions.getUserFavorites(docId));
     }
   }
 }

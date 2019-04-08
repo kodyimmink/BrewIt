@@ -25,9 +25,16 @@ class BreweryMap extends Component{
   
    componentDidMount() {
      this.props.onSetInitialPosition();
+
+     //this is still not async, I tried to implement but am unable to at the moment
+        //temporary solution until I can figure it out
+      setTimeout( function(){
+        this.props.onSetBreweriesList(this.props.location);
+        this.props.onUpdateMapCenter(this.props.location);
+      }.bind(this), 500);
      //this is not async, does not wait for location to be determined.
      //TO-DO: need to make this wait for location before running.
-     this.props.onSetBreweriesList(this.props.location);
+     //this.props.onSetBreweriesList(this.props.location);
    }
 
   render() {
@@ -97,6 +104,9 @@ function mapDispatchToProps(dispatch){
     },
     onSetBreweriesList(position){
       dispatch(actions.setBreweriesList(position));
+    },
+    onUpdateMapCenter(coords){
+      dispatch(actions.setMapCenter(coords));
     }
   }
 }

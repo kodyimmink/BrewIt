@@ -19,7 +19,6 @@ class ReviewModal extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.onStarClick = this.onStarClick.bind(this);
   }
 
   componentDidMount(){
@@ -31,14 +30,13 @@ class ReviewModal extends React.Component {
         userId: this.props.userId,
         breweryId: this.props.brewery.id,
       }
-      , () => {console.log(this.state.reviewText)}
     )
   })
   }
   
   toggle() {
     this.setState({
-      reviewModal: !this.state.reviewModal
+      reviewModal: !this.state.reviewModal,
     })
   }
 
@@ -46,10 +44,6 @@ class ReviewModal extends React.Component {
     this.setState({
         reviewText: e.target.value,
     })
-  }
-
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({rating: nextValue});
   }
 
   onSubmit = (e) => {
@@ -60,15 +54,10 @@ class ReviewModal extends React.Component {
       breweryId: this.state.breweryId,
     }
     addBreweryReviewToDb(review.breweryId, review.reviewText, review.userId);
-    //database.push(review);
-    console.log(review);
     this.setState({
         reviewModal: false,
     })
  }
- 
-
-
 
   render() {
     return (
@@ -80,7 +69,7 @@ class ReviewModal extends React.Component {
                   <AvForm>
                       <p>{this.state.reviewText}</p> 
                     <StarRating userId={this.props.user.uid} item={this.props.brewery}/>
-                      <AvField onChange={e => this.handleChange(e)} name="reviewText" type="textarea" validate={{maxLength: {value: 1000}}} />
+                      <AvField onChange={e => this.handleChange(e)} value={this.state.reviewText} name="reviewText" type="textarea" rows="10" validate={{maxLength: {value: 1000}}} />
                     <Button onClick={(e) => this.onSubmit(e)} type="submit" color="info">Submit</Button>
                   </AvForm>
                 </ModalBody>

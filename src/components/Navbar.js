@@ -100,7 +100,7 @@ class BrewitNavbar extends React.Component {
               <div className="row">
                 {this.props.haveUserFavorites ?
                   <div>
-                  <Button color="danger" size="lg" onClick={this.toggleFavModal} >My Breweries</Button>
+                  <Button className='bg-green buttonMargin' size="lg" onClick={this.toggleFavModal} >My Breweries</Button>
                     <FavoritesList />
                   </div> 
                   : 
@@ -108,7 +108,7 @@ class BrewitNavbar extends React.Component {
                 }
                 {this.props.user ?
                   <div>
-                    <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button>  
+                    <Button color="secondary" size="lg" onClick={this.logout}>Logout</Button> 
                   </div>
                   :
                   <div>

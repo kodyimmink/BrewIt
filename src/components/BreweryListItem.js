@@ -25,8 +25,10 @@ class BreweryListItem extends React.Component {
   }
   
   removeFavorite(){
-    console.log("Removed Favorite");
     this.props.onRemoveFavoriteBrewery(this.props.userDocId, this.item)
+    setTimeout( function(){
+      this.props.onGetUserFavorites(this.props.userDocId);
+    }.bind(this), 500);
   }
 
   updateMapCenter(){
@@ -35,6 +37,8 @@ class BreweryListItem extends React.Component {
       lng: this.item.longitude,
     }
     this.props.onUpdateMapCenter(coords)
+    this.props.onSetBreweriesList(coords);
+    this.props.onToggleFavoritesModal(this.props.favoriteModal);
   }
 
   openReviewModal() {
@@ -106,6 +110,7 @@ function mapStateToProps(state){
   return {
       userDocId: state.userDocId,
       user: state.user,
+      favoriteModal: state.favoriteModal,
   };
 }
 
@@ -116,6 +121,15 @@ function mapDispatchToProps(dispatch){
     },
     onUpdateMapCenter(coords){
       dispatch(actions.setMapCenter(coords));
+    },
+    onGetUserFavorites(docId){
+      dispatch(actions.getUserFavorites(docId));
+    },
+    onSetBreweriesList(coords){
+      dispatch(actions.setBreweriesList(coords));
+    },
+    onToggleFavoritesModal(modalBool){
+      dispatch(actions.toggleFavoritesModal(modalBool));
     }
   }
 }

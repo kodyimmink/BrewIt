@@ -14,12 +14,12 @@ const TOGGLE_FAVORITES_MODAL = 'TOGGLE_FAVORITES_MODAL';
 
 const initialState = {
     location: {
-        lat: 42.9918511,
-        lng: -83.6194481,
+        lat: 41.233661,
+        lng: -99.679059,
     },
     mapCenter: {
-        lat: 42.9918511,
-        lng: -83.6194481,
+        lat: 41.233661,
+        lng: -99.679059,
     },
     haveUsersLocation: false,
     zoom: 2,
@@ -107,7 +107,7 @@ export function reducer(state = initialState, action){
             return {
                 ...state,
                 location: action.payload,
-                zoom: 8,
+                zoom: 5,
                 haveUsersLocation: true
             }
         }
@@ -115,7 +115,7 @@ export function reducer(state = initialState, action){
             return {
                 ...state,
                 mapCenter: action.payload,
-                zoom: 10,
+                zoom: 11,
             }
         }
         case SET_BREWERIES_LIST+'_FULFILLED': {
