@@ -39,6 +39,7 @@ class Brewery extends PureComponent {
       }
     }
     this.props.onUpdateMapCenter(coords)
+    this.props.onSetBreweriesList(coords);
   }
   
   render() {
@@ -112,7 +113,7 @@ class Brewery extends PureComponent {
                   <div className='columnThree'>
                   {
                     this.props.brewery.latitude !== null || this.props.brewery.longitude !== null ? 
-                    <Button onClick={this.updateMapCenter} size='md' color="info">See on Map</Button>
+                    <Button onClick={this.updateMapCenter} size='md' color="info">Map</Button>
                     : ''
                   }
                   </div>
@@ -134,7 +135,8 @@ function mapStateToProps(state){
   return {
       brewery: state.brewery,
       userDocId: state.userDocId,
-      location: state.location
+      location: state.location,
+      favoritesList: state.favoritesList
   };
 }
 
@@ -151,6 +153,9 @@ function mapDispatchToProps(dispatch){
     },
     onGetUserFavorites(docId){
       dispatch(actions.getUserFavorites(docId));
+    },
+    onSetBreweriesList(coords){
+      dispatch(actions.setBreweriesList(coords));
     }
   }
 }

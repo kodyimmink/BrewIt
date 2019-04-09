@@ -8,7 +8,7 @@
 }
 
 .leaflet-container {
-  height: 500px;;
+  height: 500px;
   width: 95%;
   margin: 0 auto;
 }
@@ -63,13 +63,13 @@
 }
 
 .custom-popup .leaflet-popup-content-wrapper {
-  background:#3D5A80;
+  background:#38c172;
   color:#fff;
   font-size:16px;
   line-height:24px;
   }
 .custom-popup .leaflet-popup-content-wrapper a {
-  color:rgba(255,255,255,0.5);
+  color:rgb(0, 0, 0);
   }
 .custom-popup .leaflet-popup-tip-container {
   width:30px;
@@ -181,3 +181,17 @@
   .buttonMargin{
     margin: 0px 10px 0px 0px!important;
   }
+
+  .howToList{
+    text-align: center;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  

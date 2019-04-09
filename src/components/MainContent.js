@@ -7,9 +7,15 @@ function MainContent(){
     return(
       <div className='mainContent'>
         <main>
-          <BrewItInfo />
+          <div className='myInfo'>
+            <h1>Welcome to BrewIt!</h1>
+              <h5>
+              BrewIt is a web app that makes it easy to discover breweries in your area. 
+            </h5>
+          </div>
           <BrewerySearch />
           <BreweryMap />
+          <BrewItInfo />
         </main>
       </div> 
     );

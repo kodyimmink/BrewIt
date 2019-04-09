@@ -85,7 +85,7 @@ class BreweryListItem extends React.Component {
                 <br />
                 <div className='row'>
                   <div className='columnThree'>
-                  <Button onClick={this.removeFavorite} size='md' color="info">Remove</Button>
+                  <Button onClick={this.removeFavorite} size='md' color="primary">Remove</Button>
                   </div>
                   <div className='columnThree'>
                     <ReviewModal userId={this.props.user.uid} brewery={this.item}/> 
@@ -93,7 +93,7 @@ class BreweryListItem extends React.Component {
                   <div className='columnThree'>
                   {
                     this.item.latitude !== null || this.item.longitude !== null ? 
-                    <Button onClick={this.updateMapCenter} size='md' color="info">Map</Button>
+                    <Button onClick={this.updateMapCenter} size='md' color="primary">Map</Button>
                     : ''
                   }
                   </div>
