@@ -83,7 +83,7 @@ class BrewitNavbar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <Navbar className='navbar-bg' light expand="md">
           <NavbarBrand href="/">
             <Logo />
           </NavbarBrand>

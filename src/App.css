@@ -194,4 +194,13 @@
     font-weight: 600;
   }
 
+  .navbar-bg{
+    background: #1652f0 !important;
+  }
+
+  .primary{
+    background-color: #1652f0 !important;
+    border-color: #1652f0 !important;
+  }
+
   

@@ -62,7 +62,7 @@ class ReviewModal extends React.Component {
   render() {
     return (
         <div>
-          <Button onClick={this.toggle} size='md' color="primary">Review</Button>
+          <Button onClick={this.toggle} size='md' className='primary'>Review</Button>
             <Modal isOpen={this.state.reviewModal} toggle={this.toggle} size='lg'>
               <ModalHeader>Review: {this.props.brewery.name}</ModalHeader>
                 <ModalBody>
@@ -70,7 +70,7 @@ class ReviewModal extends React.Component {
                       <p>{this.state.reviewText}</p> 
                     <StarRating userId={this.props.user.uid} item={this.props.brewery}/>
                       <AvField onChange={e => this.handleChange(e)} value={this.state.reviewText} name="reviewText" type="textarea" rows="10" validate={{maxLength: {value: 1000}}} />
-                    <Button onClick={(e) => this.onSubmit(e)} type="submit" color="primary">Submit</Button>
+                    <Button onClick={(e) => this.onSubmit(e)} type="submit" className='primary'>Submit</Button>
                   </AvForm>
                 </ModalBody>
             </Modal>

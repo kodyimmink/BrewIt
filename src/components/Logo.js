@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import brewitLogo from '../icons/brewItLogoFinal.svg'
+import brewitLogo from '../icons/brewItLogoWhiteTransparent.png'
 
 class Logo extends Component{
 

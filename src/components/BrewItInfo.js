@@ -21,7 +21,7 @@ class BrewItInfo extends React.Component {
         <br />
         <div className='row'>
           <div className='column'>
-            <Button size='lg' color="primary" onClick={this.toggle}>How to BrewIt</Button>
+            <Button size='lg' className='primary' onClick={this.toggle}>How to BrewIt</Button>
           </div>
         </div>
         <Collapse

@@ -89,13 +89,13 @@ class BrewerySearch extends Component {
     };
 
     return (
-      <div>
-      <div className='row'>
-        <div className='column'>
-          <Button size='lg' color="primary" onClick={this.toggle}>Search</Button>
+      <div className="mb-4 searchBox">
+        <div className='row'>
+          <div className='column'>
+            <Button size='lg' className='primary' onClick={this.toggle}>Search</Button>
+          </div>
         </div>
-      </div>
-        <div className="mb-4 searchBox">
+        <div >
           <Collapse
             isOpen={this.state.collapse}
           >
