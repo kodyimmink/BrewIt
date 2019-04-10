@@ -10,7 +10,6 @@ class FavoritesList extends React.Component {
       super(props);
       this.state = {};
 
-      //this.breweries = this.props.favoriteBreweries
       this.listItems = this.props.favoriteBreweries.map((brewery) =>                             
         <BreweryListItem key={brewery.id} item={brewery} /> );
 

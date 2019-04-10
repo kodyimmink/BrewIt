@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import L from 'leaflet';
 import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import { Button } from 'reactstrap';
 
 import { connect } from 'react-redux';
 import { actions } from '../store';
@@ -22,6 +23,11 @@ const userLocation = L.icon({
 });
 
 class BreweryMap extends Component{
+  constructor(props) {
+    super(props);
+
+    this.addFavoriteBrewery = this.addFavoriteBrewery.bind(this);
+  }
   
    componentDidMount() {
      this.props.onSetInitialPosition();
@@ -31,11 +37,18 @@ class BreweryMap extends Component{
       setTimeout( function(){
         this.props.onSetBreweriesList(this.props.location);
         this.props.onUpdateMapCenter(this.props.location);
-      }.bind(this), 500);
+      }.bind(this), 1000);
      //this is not async, does not wait for location to be determined.
      //TO-DO: need to make this wait for location before running.
      //this.props.onSetBreweriesList(this.props.location);
    }
+
+   addFavoriteBrewery(brewery){
+      this.props.onUpdateUserFavorites(this.props.userDocId, brewery)
+   }
+
+
+
 
   render() {
     const position = [this.props.location.lat, this.props.location.lng];
@@ -78,6 +91,13 @@ class BreweryMap extends Component{
                 {brewery.street}<br />
                 {brewery.city}, {brewery.state} {brewery.postal_code}<br />
                 <a href={brewery.website_url} target='_blank'>{brewery.website_url}</a>
+                {
+                  <div className='row'>
+                    <div className='column'>
+                      <Button className='primary' size="sm" onClick={() => this.addFavoriteBrewery(brewery)}>Like</Button>
+                    </div>
+                  </div>
+                }
               </Popup>
             </Marker>
           ))
@@ -94,6 +114,7 @@ function mapStateToProps(state){
       zoom: state.zoom,
       localBreweriesList: state.localBreweriesList,
       mapCenter: state.mapCenter,
+      userDocId: state.userDocId,
   };
 }
 
@@ -107,7 +128,13 @@ function mapDispatchToProps(dispatch){
     },
     onUpdateMapCenter(coords){
       dispatch(actions.setMapCenter(coords));
-    }
+    },
+    onUpdateUserFavorites(docId, brewery){
+      dispatch(actions.updateUserFavorites(docId, brewery));
+    },
+    onRemoveFavoriteBrewery(docId, brewery){
+      dispatch(actions.removeFavoriteBrewery(docId, brewery));
+    },
   }
 }
 
