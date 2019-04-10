@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, ModalHeader, ModalBody, Button, Input, Form, FormGroup} from 'reactstrap';
+import {Modal, ModalHeader, ModalBody, Button} from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import StarRating from './StarRating';
 import { addBreweryReviewToDb, getBreweryReview } from '../API'

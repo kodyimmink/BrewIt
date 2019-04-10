@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Collapse } from 'reactstrap';
+import { Button, Collapse } from 'reactstrap';
 
 class BrewItInfo extends React.Component {
   constructor(props){
@@ -17,7 +17,7 @@ class BrewItInfo extends React.Component {
 
   render(){
     return(
-      <div className='myInfo'>
+      <div>
         <br />
         <div className='row'>
           <div className='column'>
@@ -40,4 +40,4 @@ class BrewItInfo extends React.Component {
     );
   }
 }
-  export default BrewItInfo;
+export default BrewItInfo;

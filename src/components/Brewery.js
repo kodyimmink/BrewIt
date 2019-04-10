@@ -105,15 +105,15 @@ class Brewery extends PureComponent {
             </address>
               <div className='row'>
                   <div className='columnThree'>
-                  <Button onClick={this.updateFavBrewery} color="info">Like</Button>
+                  <Button onClick={this.updateFavBrewery} className='primary'>Like</Button>
                   </div>
                   <div className='columnThree'>
-                  <Button onClick={this.removeFavBrewery} color="info">Unlike</Button>
+                  <Button onClick={this.removeFavBrewery} className='primary'>Unlike</Button>
                   </div>
                   <div className='columnThree'>
                   {
                     this.props.brewery.latitude !== null || this.props.brewery.longitude !== null ? 
-                    <Button onClick={this.updateMapCenter} size='md' color="info">Map</Button>
+                    <Button onClick={this.updateMapCenter} size='md' className='primary'>Map</Button>
                     : ''
                   }
                   </div>

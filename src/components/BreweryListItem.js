@@ -77,7 +77,7 @@ class BreweryListItem extends React.Component {
                   {this.item.city}, {this.item.state} {this.item.postal_code} <br />
                   </li> : '' }
                   { this.item.phone !== '' ? <li><b>Phone: </b>{this.item.phone}</li> : ''}
-                  { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url} target="_blank" >{this.item.website_url}</a></li>: ''}
+                  { this.item.website_url !== '' ? <li><b>Website: </b><a href={this.item.website_url} target="_blank" rel="noopener noreferrer">{this.item.website_url}</a></li>: ''}
                   <li><StarRating userId={this.props.user.uid} item={this.item}/></li>
                   { this.item.street === '' && this.item.city === '' && this.item.state === '' && this.item.postal_code === '' && 
                     this.item.phone === '' && this.item.website_url === ''? <li><b>No information is availble</b></li>: ''}

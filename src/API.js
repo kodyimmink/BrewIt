@@ -1,4 +1,4 @@
-import {fire} from './fire';
+import fire from './fire';
 const firebase = require("firebase");
 
 const firestoreRef = firebase.firestore();
