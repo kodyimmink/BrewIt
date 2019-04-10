@@ -2,9 +2,9 @@
   height: 100%;
 }
 
-.myInfo{
+.brewItInfo{
   width: 95%;
-  margin: 10px 0px 10px 10px;;
+  margin: 10px 0px 10px 10px;
 }
 
 .leaflet-container {
@@ -20,7 +20,8 @@
 .row {
   display: flex;
   text-align: center;
-  padding: 15px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
 .column {
@@ -179,7 +180,7 @@
   }
 
   .buttonMargin{
-    margin: 0px 10px 0px 0px!important;
+    margin: 0px 10px 0px 0px !important;
   }
 
   .howToList{
@@ -209,6 +210,10 @@
     background-image: url(./icons/hamburgerMenuWhite.svg) !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
+  }
+
+  html {
+    overflow-y: scroll;
   }
 
   

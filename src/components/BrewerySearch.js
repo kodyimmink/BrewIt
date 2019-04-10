@@ -99,6 +99,7 @@ class BrewerySearch extends Component {
           <Collapse
             isOpen={this.state.collapse}
           >
+          <br />
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
