@@ -87,7 +87,7 @@ class BrewitNavbar extends React.Component {
           <NavbarBrand href="/">
             <Logo />
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
+          <NavbarToggler className='navbarToggler' onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>

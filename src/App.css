@@ -203,4 +203,12 @@
     border-color: #1652f0 !important;
   }
 
+  .navbarToggler{
+    background-color:#fff !important;
+    border-color: #fff !important;
+    background-image: url(./icons/hamburgerMenuWhite.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+  }
+
   
