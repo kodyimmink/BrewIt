@@ -13,7 +13,7 @@ const getSuggestionValue = suggestion => suggestion.name;
 
 const renderSuggestion = suggestion => (
   <div className="text-lg mb-2 rounded">
-    { suggestion.name }<br />
+    <b>{ suggestion.name }</b><br />
     { suggestion.city !== '' || suggestion.state !== '' ? <span>{suggestion.city}, {suggestion.state} </span> : '' }<br />
   </div>
 );
@@ -33,7 +33,11 @@ class BrewerySearch extends Component {
   }
 
   getSuggestions = value => {
-    const params = { query: value }
+    const params = { 
+                      query: value,
+                      page: 1,
+                      per_page:5 
+                    }
 
     axios.get(`${API_SERVER_HOST}/breweries/search`, { params: params })
       .then(res => {

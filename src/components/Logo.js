@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import brewitLogo from '../icons/brewItLogoWhiteTransparent.svg'
 
-class Logo extends Component{
+export default class Logo extends Component{
 
     home(e) {
         e.preventDefault();
@@ -10,9 +10,7 @@ class Logo extends Component{
 
     render() {
        return <div onClick={this.home}>
-       <span> <img src={brewitLogo} alt="brewit logo" width='120' height='50'/></span>
+       <span> <img src={brewitLogo} alt="brewit logo" width='84' height='35'/></span>
      </div>
        }
 }
-
- export default Logo;

@@ -112,7 +112,7 @@ class BrewitNavbar extends React.Component {
                   </div>
                   :
                   <div>
-                    <Button color="primary" size="lg" onClick={this.login}>Login</Button>
+                    <Button color="light" size="lg" onClick={this.login}>Login</Button>
                   </div>            
                 }
               </div>
