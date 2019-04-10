@@ -9,10 +9,6 @@ class FavoritesList extends React.Component {
     constructor(props) {
       super(props);
       this.state = {};
-
-      this.listItems = this.props.favoriteBreweries.map((brewery) =>                             
-        <BreweryListItem key={brewery.id} item={brewery} /> );
-
       this.toggle = this.toggle.bind(this);
     }
 
@@ -22,6 +18,8 @@ class FavoritesList extends React.Component {
     }
 
     render() {
+      var listItems = this.props.favoriteBreweries.map((brewery) =>                             
+      <BreweryListItem key={brewery.id} uniqueKey={brewery.id} item={brewery} /> );
         return (
           <div>
             <Modal isOpen={this.props.favoriteModal} toggle={this.toggle} size='lg'>
@@ -36,7 +34,7 @@ class FavoritesList extends React.Component {
               </ModalHeader>
               <ModalBody>
                 <ListGroup>
-                    {this.listItems}
+                    {listItems}
                 </ListGroup>
               </ModalBody>
             </Modal>
