@@ -72,9 +72,8 @@ class BreweryMap extends Component{
           position={[brewery.latitude, brewery.longitude]}
           icon={breweryIcon}
           >
-          {this.bgColor = this.determineCssClass(brewery)}
           <Popup
-            className={`${this.bgColor} custom-popup leaflet-popup-content-wrapper`}
+            className={`${this.determineCssClass(brewery)} custom-popup leaflet-popup-content-wrapper`}
             >
             <b>{brewery.name}</b><br />
             {brewery.street}<br />
@@ -119,7 +118,7 @@ class BreweryMap extends Component{
             icon={userLocation}
             >
             <Popup
-              className='custom-popup leaflet-popup-content-wrapper'>
+              className='custom-popup leaflet-popup-content-wrapper userLocation'>
               Latitude: {position[0]} 
               <br />
               Longitude: {position[1]}

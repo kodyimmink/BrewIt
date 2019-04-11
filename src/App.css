@@ -64,6 +64,10 @@
   margin: 5px;
 }
 
+.userLocation{
+  background-color: #1652f0 !important;
+}
+
 .custom-popup .leaflet-popup-content-wrapper {
   background-color:#38c17100; 
   color:#fff;
