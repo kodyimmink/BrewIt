@@ -65,18 +65,21 @@
 }
 
 .custom-popup .leaflet-popup-content-wrapper {
-  background:#38c172;
+  background-color:#38c17100; 
   color:#fff;
   font-size:16px;
   line-height:24px;
   }
+
 .custom-popup .leaflet-popup-content-wrapper a {
-  color:rgb(0, 0, 0);
+  color: #ffffff;
   }
+
 .custom-popup .leaflet-popup-tip-container {
   width:30px;
   height:15px;
   }
+  
 .custom-popup .leaflet-popup-tip {
   border-left:15px solid transparent;
   border-right:15px solid transparent;
@@ -140,16 +143,16 @@
   }
 
   .bg-green {
-    background-color: #38c172 !important ;
+    background: #38c172 !important ;
     border-color: #38c172 !important;
   }
 
   .bg-dkblue {
-    background-color: #0F5257 !important ;
+    background: #0F5257 !important ;
   }
 
   .bg-lgblue {
-    background-color: #40798C !important ;
+    background: #40798C !important ;
   }
 
   .text-white {
@@ -157,11 +160,11 @@
   }
 
   .bg-orange {
-    background-color: #EC7D10 !important ;
+    background: #EC7D10 !important ;
   }
 
   .bg-grey-light {
-    background-color: #9ba1a5 !important ;
+    background: #9ba1a5 !important ;
   }
 
   .text-grey {

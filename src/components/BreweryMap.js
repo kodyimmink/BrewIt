@@ -25,9 +25,10 @@ const userLocation = L.icon({
 class BreweryMap extends Component{
   constructor(props) {
     super(props);
-
     this.addFavoriteBrewery = this.addFavoriteBrewery.bind(this);
+    this.determineCssClass = this.determineCssClass.bind(this);
   }
+  
   
    componentDidMount() {
      this.props.onSetInitialPosition();
@@ -47,8 +48,56 @@ class BreweryMap extends Component{
       this.props.onUpdateUserFavorites(this.props.userDocId, brewery)
    }
 
+   determineCssClass(brewery){
+    switch(brewery.brewery_type) {
+      case 'micro':
+        return 'bg-dkblue text-white'
+      case 'regional':
+        return 'bg-lgblue text-white'
+      case 'large':
+        return 'bg-orange text-white'
+      case 'brewpub':
+        return 'bg-green text-white'
+      default:
+        return 'bg-grey-light text-white'
+      }
+   }
 
-
+   createLocalBreweryMarkers(){
+    return this.props.localBreweriesList.map(
+      brewery => {
+      return(
+        <Marker
+          key={brewery.id}
+          position={[brewery.latitude, brewery.longitude]}
+          icon={breweryIcon}
+          >
+          {this.bgColor = this.determineCssClass(brewery)}
+          <Popup
+            className={`${this.bgColor} custom-popup leaflet-popup-content-wrapper`}
+            >
+            <b>{brewery.name}</b><br />
+            {brewery.street}<br />
+            {brewery.city}, {brewery.state} {brewery.postal_code}<br />
+            {
+              <div className='row'>
+                <div className='column'>
+                  <Button className='primary' size="sm" onClick={() => this.addFavoriteBrewery(brewery)}>Like</Button>
+                </div>
+                { brewery.website_url ?
+                <div className='column'>
+                  <Button className='primary' size="sm" onClick={()=> window.open(brewery.website_url, "_blank")}>Website</Button>
+                </div>
+                : ''
+                }
+              </div>
+            }
+          </Popup>
+        </Marker>
+      )
+    }
+    )
+   }
 
   render() {
     const position = [this.props.location.lat, this.props.location.lng];
@@ -78,29 +127,7 @@ class BreweryMap extends Component{
           </Marker> : ''
         }
         {
-          this.props.localBreweriesList.map(brewery => (
-            <Marker
-              key={brewery.id}
-              position={[brewery.latitude, brewery.longitude]}
-              icon={breweryIcon}
-              >
-              <Popup 
-                className='custom-popup leaflet-popup-content-wrapper'
-                >
-                <b>{brewery.name}</b><br />
-                {brewery.street}<br />
-                {brewery.city}, {brewery.state} {brewery.postal_code}<br />
-                <a href={brewery.website_url} target='_blank' rel="noopener noreferrer">{brewery.website_url}</a>
-                {
-                  <div className='row'>
-                    <div className='column'>
-                      <Button className='primary' size="sm" onClick={() => this.addFavoriteBrewery(brewery)}>Like</Button>
-                    </div>
-                  </div>
-                }
-              </Popup>
-            </Marker>
-          ))
+          this.createLocalBreweryMarkers()
         }
       </Map>
     );
